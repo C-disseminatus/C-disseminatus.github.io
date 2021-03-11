@@ -52,9 +52,18 @@
 <h1 id="更换GitHub用户名后的操作"><a href="#更换GitHub用户名后的操作" class="headerlink" title="更换GitHub用户名后的操作"></a>更换GitHub用户名后的操作</h1><p>把github上的repository仓库名更换为与用户名一致<br>然后打开blog本地文件夹，更改_config.yml文件：</p>
 <figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="string">https://newusrname.github.io/</span></span><br><span class="line"><span class="attr">root:</span> <span class="string">/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">&#x27;git&#x27;</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:newusrname/newusrname.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">gh-pages</span></span><br></pre></td></tr></table></figure>
 
+<h1 id="修改默认的文章链接生成格式"><a href="#修改默认的文章链接生成格式" class="headerlink" title="修改默认的文章链接生成格式"></a>修改默认的文章链接生成格式</h1><p>在博客文件夹内安装hexo-abbrlink插件：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
+<p>可能出现各种dependency错误，按照需求把缺失的dependency用<code>npm install</code>安装即可<br>修改博客配置文件：</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">permalink:</span> <span class="string">posts/:abbrlink/</span></span><br><span class="line"><span class="attr">abbrlink:</span></span><br><span class="line">  <span class="attr">alg:</span> <span class="string">crc16</span></span><br><span class="line">  <span class="attr">rep:</span> <span class="string">dec</span></span><br></pre></td></tr></table></figure>
+<p>配置生效</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo d -g</span><br></pre></td></tr></table></figure>
+
+
 <h2 id="参考教程"><a href="#参考教程" class="headerlink" title="参考教程"></a>参考教程</h2><ol>
 <li><a href="https://mfrank2016.github.io/breeze-blog/2020/05/02/hexo/hexo-start/">https://mfrank2016.github.io/breeze-blog/2020/05/02/hexo/hexo-start/</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/35668237">https://zhuanlan.zhihu.com/p/35668237</a></li>
+<li><a href="https://blog.csdn.net/as480133937/article/details/100138838">https://blog.csdn.net/as480133937/article/details/100138838</a></li>
 </ol>
 ]]></content>
   </entry>
