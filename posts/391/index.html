@@ -7,10 +7,8 @@
 <meta name="generator" content="Hexo 5.4.0">
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -25,16 +23,19 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta name="description" content="本地安装nodejs下载网址：https:&#x2F;&#x2F;nodejs.org&#x2F;zh-cn&#x2F;download&#x2F;选择版本：node-v14.16.0-x64.msi（长期支持版）默认参数安装，占用内存约53M 本地安装git下载网址：https:&#x2F;&#x2F;gitforwindows.org&#x2F;选择版本：Git-2.30.2-64-bit.exe默认参数安装，占用内存约260M 本地新建存放博客文件的专用文件夹进入此文件">
+<meta name="description" content="通过GitHub Pages搭建Hexo内核博客的流程记录。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GitHub Pages + Hexo搭建博客流程">
 <meta property="og:url" content="https://exhalationzone.github.io/posts/391/index.html">
 <meta property="og:site_name" content="Exhalation Zone">
-<meta property="og:description" content="本地安装nodejs下载网址：https:&#x2F;&#x2F;nodejs.org&#x2F;zh-cn&#x2F;download&#x2F;选择版本：node-v14.16.0-x64.msi（长期支持版）默认参数安装，占用内存约53M 本地安装git下载网址：https:&#x2F;&#x2F;gitforwindows.org&#x2F;选择版本：Git-2.30.2-64-bit.exe默认参数安装，占用内存约260M 本地新建存放博客文件的专用文件夹进入此文件">
+<meta property="og:description" content="通过GitHub Pages搭建Hexo内核博客的流程记录。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-11T02:39:22.000Z">
-<meta property="article:modified_time" content="2021-03-11T08:54:17.026Z">
+<meta property="article:modified_time" content="2021-03-11T10:59:53.069Z">
 <meta property="article:author" content="FC">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="Blog Building">
+<meta property="article:tag" content="GitHub">
 <meta name="twitter:card" content="summary">
 
 
@@ -127,8 +128,11 @@
 
 <nav class="site-nav">
   <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
         <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
         <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -197,10 +201,23 @@
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives">
+          <a href="/archives/">
+        
           <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -263,12 +280,22 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2021-03-11 10:39:22 / 修改时间：16:54:17" itemprop="dateCreated datePublished" datetime="2021-03-11T10:39:22+08:00">2021-03-11</time>
+      <time title="创建时间：2021-03-11 10:39:22 / 修改时间：18:59:53" itemprop="dateCreated datePublished" datetime="2021-03-11T10:39:22+08:00">2021-03-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Blog-Building/" itemprop="url" rel="index"><span itemprop="name">Blog Building</span></a>
+        </span>
     </span>
 
   
 </div>
 
+            <div class="post-description">通过GitHub Pages搭建Hexo内核博客的流程记录。</div>
         </div>
       </header>
 
@@ -346,6 +373,11 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+              <a href="/tags/Blog-Building/" rel="tag"># Blog Building</a>
+              <a href="/tags/GitHub/" rel="tag"># GitHub</a>
+          </div>
 
         
 

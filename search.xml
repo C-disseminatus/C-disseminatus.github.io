@@ -66,6 +66,14 @@
 <li><a href="https://blog.csdn.net/as480133937/article/details/100138838">https://blog.csdn.net/as480133937/article/details/100138838</a></li>
 </ol>
 ]]></content>
+      <categories>
+        <category>Blog Building</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Blog Building</tag>
+        <tag>GitHub</tag>
+      </tags>
   </entry>
   <entry>
     <title>Hello World</title>
@@ -84,5 +92,11 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>Blog Building</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
   </entry>
 </search>
