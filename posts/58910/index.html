@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="转录组差异表达分析的最基本流程和命令行整理。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="转录组基本分析流程">
+<meta property="og:url" content="https://exhalationzone.github.io/posts/58910/index.html">
+<meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="转录组差异表达分析的最基本流程和命令行整理。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-26T01:00:00.000Z">
+<meta property="article:modified_time" content="2022-01-26T07:34:46.503Z">
+<meta property="article:author" content="Fc">
+<meta property="article:tag" content="转录组">
+<meta property="article:tag" content="生信">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://exhalationzone.github.io/posts/58910/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>转录组基本分析流程 | Mirage</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Mirage</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There's a million things I haven't done. But just you wait.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%AC%E6%9C%BA%E7%BA%BF%E7%A8%8B%E6%95%B0%E4%B8%8E%E6%A0%B8%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">查询本机线程数与核数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#rawdata%E8%B4%A8%E9%87%8F%E6%A3%80%E6%B5%8B"><span class="nav-number">2.</span> <span class="nav-text">rawdata质量检测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86gff%E6%B3%A8%E9%87%8A%E8%BD%AC%E6%88%90gtf%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">将gff注释转成gtf格式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E5%BB%BAindex%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">构建index文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%86%E6%A0%B7%E5%93%81%E7%9A%84reads%E6%AF%94%E5%AF%B9%E5%88%B0index%E7%B4%A2%E5%BC%95%E4%B8%AD"><span class="nav-number">5.</span> <span class="nav-text">将样品的reads比对到index索引中</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BD%AC%E6%8D%A2sam%E6%96%87%E4%BB%B6%E5%88%B0bam%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">转换sam文件到bam文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9bam%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E6%8E%92%E5%BA%8F"><span class="nav-number">7.</span> <span class="nav-text">对bam文件进行排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E6%8E%92%E5%BA%8F%E5%90%8E%E7%9A%84bam%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E7%B4%A2%E5%BC%95"><span class="nav-number">8.</span> <span class="nav-text">对排序后的bam文件进行索引</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8Bbam%E6%96%87%E4%BB%B6%E6%AF%94%E5%AF%B9%E6%95%88%E7%8E%87"><span class="nav-number">9.</span> <span class="nav-text">查看bam文件比对效率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9%E5%9B%9E%E5%B8%96bam%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8C%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0"><span class="nav-number">10.</span> <span class="nav-text">对回帖bam文件进行质量评估</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AF%B9bam%E6%96%87%E4%BB%B6%E8%BF%9B%E8%A1%8Ccounts%E8%AE%A1%E6%95%B0"><span class="nav-number">11.</span> <span class="nav-text">对bam文件进行counts计数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RStudio%E5%AE%89%E8%A3%85Bioconductor"><span class="nav-number">12.</span> <span class="nav-text">RStudio安装Bioconductor</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E8%A1%A8%E8%BE%BE%E7%9F%A9%E9%98%B5"><span class="nav-number">13.</span> <span class="nav-text">合并表达矩阵</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%AE%E5%BC%82%E8%A1%A8%E8%BE%BE%E5%88%86%E6%9E%90"><span class="nav-number">14.</span> <span class="nav-text">差异表达分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%98%E5%88%B6PCA%E5%9B%BE"><span class="nav-number">15.</span> <span class="nav-text">绘制PCA图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%98%E5%88%B6%E7%83%AD%E5%9B%BE"><span class="nav-number">16.</span> <span class="nav-text">绘制热图</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fc"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Fc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://exhalationzone.github.io/posts/58910/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Fc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          转录组基本分析流程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-01-26 09:00:00 / 修改时间：15:34:46" itemprop="dateCreated datePublished" datetime="2022-01-26T09:00:00+08:00">2022-01-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">生信分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">转录组差异表达分析的最基本流程和命令行整理。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="查询本机线程数与核数"><a href="#查询本机线程数与核数" class="headerlink" title="查询本机线程数与核数"></a>查询本机线程数与核数</h1><p>因为刚接触生信的时候年少无知（？）不敢乱用组里的服务器，所以下面所有转录组分析我都是用自己的电脑跑的，如果像我一样在本地运行Linux系统一定要注意不要超过本机最高的线程数！</p>
+<p>打开cmd，输入以下命令：</p>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wmic</span><br><span class="line">cpu get numberofcores #获取核数</span><br><span class="line">cpu get numberoflogicalprocessors #获取线程数</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="rawdata质量检测"><a href="#rawdata质量检测" class="headerlink" title="rawdata质量检测"></a>rawdata质量检测</h1><p>（一般需要先组装参考基因组，但由于当时已经有了参考基因组，这部分的转录组分析直接从reads的比对开始）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastqc -o &#x2F;path&#x2F;to&#x2F;output&#x2F; &#x2F;input&#x2F;data_1.fq &#x2F;input&#x2F;data_2.fq</span><br></pre></td></tr></table></figure>
+
+<p>在/path/to/output/文件夹里会生成每个样品的指控报告</p>
+<h1 id="将gff注释转成gtf格式"><a href="#将gff注释转成gtf格式" class="headerlink" title="将gff注释转成gtf格式"></a>将gff注释转成gtf格式</h1><p>（使用cufflinks的gffread功能）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gffread &#x2F;path&#x2F;to&#x2F;ann.gff -T -o &#x2F;path&#x2F;to&#x2F;ann.gtf</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="构建index文件"><a href="#构建index文件" class="headerlink" title="构建index文件"></a>构建index文件</h1><p>（使用hisat2软件，事先建一个具有可读写权限的文件夹/path/to/index并在其中操作）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hisat2_extract_exons.py ann.gtf &gt; exons.txt #提取外显子信息到名叫exons的txt文档</span><br><span class="line">hisat2_extract_splice_sites.py ann.gtf &gt; ss.txt #提取可变剪贴信息到名叫ss的txt文档</span><br><span class="line">hisat2-build -p 2 --ss ss.txt --exon exons.txt refseq.fa data #构建index索引，里面的小文件命名为data</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="将样品的reads比对到index索引中"><a href="#将样品的reads比对到index索引中" class="headerlink" title="将样品的reads比对到index索引中"></a>将样品的reads比对到index索引中</h1><p>（在刚刚建立的index/data文件夹里使用hisat2软件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">seqkit fq2fa data_1.fq -o data_1.fa #用seqkit软件将fq转换为fa</span><br><span class="line">seqkit fq2fa data_2.fq -o data_2.fa</span><br><span class="line">hisat2 -f -x &#x2F;path&#x2F;to&#x2F;index&#x2F;data -1 &#x2F;path&#x2F;to&#x2F;data_1.fa -2 &#x2F;path&#x2F;to&#x2F;data_2.fa -S &#x2F;path&#x2F;to&#x2F;out.sam</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="转换sam文件到bam文件"><a href="#转换sam文件到bam文件" class="headerlink" title="转换sam文件到bam文件"></a>转换sam文件到bam文件</h1><p>（节省存储空间，使用samtools）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools view -bS out.sam &gt; out.bam</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="对bam文件进行排序"><a href="#对bam文件进行排序" class="headerlink" title="对bam文件进行排序"></a>对bam文件进行排序</h1><p>（因为是双端测序，所以需要按照基因名称进行排序，使用samtools sort功能）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools sort out.bam -o out_sorted.bam</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="对排序后的bam文件进行索引"><a href="#对排序后的bam文件进行索引" class="headerlink" title="对排序后的bam文件进行索引"></a>对排序后的bam文件进行索引</h1><p>（使用samtools index功能，生成bai格式文件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools index index_out_sorted.bam</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="查看bam文件比对效率"><a href="#查看bam文件比对效率" class="headerlink" title="查看bam文件比对效率"></a>查看bam文件比对效率</h1><p>（Windows下使用IGV软件进行可视化）</p>
+<h1 id="对回帖bam文件进行质量评估"><a href="#对回帖bam文件进行质量评估" class="headerlink" title="对回帖bam文件进行质量评估"></a>对回帖bam文件进行质量评估</h1><p>（使用samtools flagstat功能）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samtools flagstat out_sorted.bam &gt; out_sorted.flagstat</span><br><span class="line">cat out_sorted.flagstat</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="对bam文件进行counts计数"><a href="#对bam文件进行counts计数" class="headerlink" title="对bam文件进行counts计数"></a>对bam文件进行counts计数</h1><p>（使用htseq软件）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htseq-count -s no -r name -f bam -i transcript_id &#x2F;path&#x2F;to&#x2F;out_sorted.bam &#x2F;path&#x2F;to&#x2F;ann.gtf &gt;&#x2F;path&#x2F;to&#x2F;matrix.count 2&gt; &#x2F;path&#x2F;to&#x2F;counts.log</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="RStudio安装Bioconductor"><a href="#RStudio安装Bioconductor" class="headerlink" title="RStudio安装Bioconductor"></a>RStudio安装Bioconductor</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!requireNamespace(<span class="string">&quot;BiocManager&quot;</span>, quietly = <span class="literal">TRUE</span>))</span><br><span class="line">    install.packages(<span class="string">&quot;BiocManager&quot;</span>)</span><br><span class="line">BiocManager::install(version = <span class="string">&quot;3.10&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="合并表达矩阵"><a href="#合并表达矩阵" class="headerlink" title="合并表达矩阵"></a>合并表达矩阵</h1><p>（使用RStudio，以四个样本为例）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; control1&lt;-read.table(<span class="string">&quot;1.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;control1&quot;</span>))</span><br><span class="line">&gt; head(control1)</span><br><span class="line">&gt; control2&lt;-read.table(<span class="string">&quot;2.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;control2&quot;</span>))</span><br><span class="line">&gt; treat1&lt;-read.table(<span class="string">&quot;3.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;treat1&quot;</span>))</span><br><span class="line">&gt; treat2&lt;-read.table(<span class="string">&quot;4.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;treat2&quot;</span>))</span><br><span class="line">&gt; raw_count &lt;- merge(merge(control1, control2, by=<span class="string">&quot;transcript_id&quot;</span>), merge(treat1, treat2, by=<span class="string">&quot;transcript_id&quot;</span>))</span><br><span class="line"><span class="comment"># merge()函数只能从两个数据框中选择，不能超过两个，如果样本重复超过2个，需要进行多次merge操作</span></span><br><span class="line">&gt; head(raw_count)</span><br><span class="line">&gt; tail(raw_count)</span><br><span class="line">&gt; raw_count_filt &lt;- raw_count[-<span class="number">1</span>:-<span class="number">5</span>,]</span><br><span class="line">&gt; head(raw_count_filt)</span><br><span class="line">&gt; readcount&lt;-raw_count_filt[ ,-<span class="number">1</span>]</span><br><span class="line">&gt; write.csv(readcount, file=<span class="string">&#x27;readcount.csv&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="差异表达分析"><a href="#差异表达分析" class="headerlink" title="差异表达分析"></a>差异表达分析</h1><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&gt; library(tidyverse)</span><br><span class="line">&gt; library(DESeq2)</span><br><span class="line">&gt; mycounts&lt;-read.csv(<span class="string">&quot;readcount+.csv&quot;</span>)</span><br><span class="line">&gt; head(mycounts)</span><br><span class="line">&gt; rownames(mycounts)&lt;-mycounts[,<span class="number">1</span>]</span><br><span class="line">&gt; mycounts&lt;-mycounts[,-<span class="number">1</span>] <span class="comment">#清掉第一列无用的序号</span></span><br><span class="line">&gt; head(mycounts)</span><br><span class="line">&gt; condition &lt;- factor(<span class="built_in">c</span>(<span class="built_in">rep</span>(<span class="string">&quot;control&quot;</span>,<span class="number">2</span>),<span class="built_in">rep</span>(<span class="string">&quot;treat&quot;</span>,<span class="number">2</span>)), levels = <span class="built_in">c</span>(<span class="string">&quot;control&quot;</span>,<span class="string">&quot;treat&quot;</span>))</span><br><span class="line">&gt; condition</span><br><span class="line">&gt; colData &lt;- data.frame(row.names=colnames(mycounts), condition)</span><br><span class="line">&gt; colData</span><br><span class="line">&gt; dds &lt;- DESeqDataSetFromMatrix(mycounts, colData, design= ~ condition)</span><br><span class="line">&gt; dds &lt;- DESeq(dds)</span><br><span class="line">&gt; dds</span><br><span class="line">&gt; res = results(dds, contrast=<span class="built_in">c</span>(<span class="string">&quot;condition&quot;</span>, <span class="string">&quot;control&quot;</span>, <span class="string">&quot;treat&quot;</span>))</span><br><span class="line">&gt; res= results(dds)</span><br><span class="line">&gt; res = res[order(res$pvalue),]</span><br><span class="line">&gt; head(res)</span><br><span class="line">&gt; summary(res) <span class="comment">#统计差异表达分析结果</span></span><br><span class="line"></span><br><span class="line">out of <span class="number">5403</span> with nonzero total read count</span><br><span class="line">adjusted p-value &lt; <span class="number">0.1</span></span><br><span class="line">LFC &gt; <span class="number">0</span> (up)       : <span class="number">63</span>, <span class="number">1.2</span>%</span><br><span class="line">LFC &lt; 0 (down)     : 15, 0.28%</span><br><span class="line">outliers [<span class="number">1</span>]       : <span class="number">0</span>, <span class="number">0</span>%</span><br><span class="line">low counts [2]     : 4503, 83%</span><br><span class="line">(mean count &lt; <span class="number">1502</span>)</span><br><span class="line">[<span class="number">1</span>] see <span class="string">&#x27;cooksCutoff&#x27;</span> argument of ?results</span><br><span class="line">[<span class="number">2</span>] see <span class="string">&#x27;independentFiltering&#x27;</span> argument of ?results</span><br><span class="line"></span><br><span class="line">&gt; write.csv(res,file=<span class="string">&quot;hahaha.csv&quot;</span>)</span><br><span class="line">&gt; table(res$padj&lt;<span class="number">0.05</span>)</span><br><span class="line"><span class="literal">FALSE</span>  <span class="literal">TRUE</span> </span><br><span class="line">  <span class="number">878</span>    <span class="number">22</span> </span><br></pre></td></tr></table></figure>
+
+
+<h1 id="绘制PCA图"><a href="#绘制PCA图" class="headerlink" title="绘制PCA图"></a>绘制PCA图</h1><p>（在已完成上面差异表达基因分析的基础上进行）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; vsdata &lt;- vst(dds, blind=<span class="literal">FALSE</span>)</span><br><span class="line">&gt; plotPCA(vsdata, intgroup=<span class="string">&quot;condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="绘制热图"><a href="#绘制热图" class="headerlink" title="绘制热图"></a>绘制热图</h1><p>（在已完成上面差异表达基因分析的基础上进行）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; library(<span class="string">&quot;pheatmap&quot;</span>)</span><br><span class="line">&gt; select&lt;-order(rowMeans(counts(dds, normalized = <span class="literal">TRUE</span>)), decreasing = <span class="literal">TRUE</span>)[<span class="number">1</span>:<span class="number">20</span>]</span><br><span class="line">&gt; df &lt;- as.data.frame(colData(dds)[,<span class="built_in">c</span>(<span class="string">&quot;condition&quot;</span>,<span class="string">&quot;sizeFactor&quot;</span>)])</span><br><span class="line">&gt; ntd &lt;- normTransform(dds)</span><br><span class="line">&gt; pheatmap(assay(ntd)[select,], cluster_rows=<span class="literal">FALSE</span>, show_rownames=<span class="literal">FALSE</span>, cluster_cols=<span class="literal">FALSE</span>, annotation_col=df)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BD%AC%E5%BD%95%E7%BB%84/" rel="tag"># 转录组</a>
+              <a href="/tags/%E7%94%9F%E4%BF%A1/" rel="tag"># 生信</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/3089/" rel="prev" title="鸻鹬的冬天无人知晓">
+                  <i class="fa fa-chevron-left"></i> 鸻鹬的冬天无人知晓
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/posts/24235/" rel="next" title="西西弗神话 - 摘抄">
+                  西西弗神话 - 摘抄 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fc</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -67,12 +67,12 @@
 </ol>
 ]]></content>
       <categories>
-        <category>Blog Building</category>
+        <category>博客建站</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
-        <tag>Blog Building</tag>
         <tag>GitHub</tag>
+        <tag>博客建站</tag>
       </tags>
   </entry>
   <entry>
@@ -93,7 +93,7 @@
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
       <categories>
-        <category>Blog Building</category>
+        <category>博客建站</category>
       </categories>
       <tags>
         <tag>Hexo</tag>
@@ -121,7 +121,7 @@
   </entry>
   <entry>
     <title>转录组基本分析流程</title>
-    <url>/posts/3089/</url>
+    <url>/posts/58910/</url>
     <content><![CDATA[<h1 id="查询本机线程数与核数"><a href="#查询本机线程数与核数" class="headerlink" title="查询本机线程数与核数"></a>查询本机线程数与核数</h1><p>因为刚接触生信的时候年少无知（？）不敢乱用组里的服务器，所以下面所有转录组分析我都是用自己的电脑跑的，如果像我一样在本地运行Linux系统一定要注意不要超过本机最高的线程数！</p>
 <p>打开cmd，输入以下命令：</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">wmic</span><br><span class="line">cpu get numberofcores #获取核数</span><br><span class="line">cpu get numberoflogicalprocessors #获取线程数</span><br></pre></td></tr></table></figure>
@@ -131,48 +131,87 @@
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">fastqc -o &#x2F;path&#x2F;to&#x2F;output&#x2F; &#x2F;input&#x2F;data_1.fq &#x2F;input&#x2F;data_2.fq</span><br></pre></td></tr></table></figure>
 
 <p>在/path/to/output/文件夹里会生成每个样品的指控报告</p>
-<h1 id="转换gff→gtf注释文件（使用cufflinks的gffread功能）"><a href="#转换gff→gtf注释文件（使用cufflinks的gffread功能）" class="headerlink" title="转换gff→gtf注释文件（使用cufflinks的gffread功能）"></a>转换gff→gtf注释文件（使用cufflinks的gffread功能）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gffread &#x2F;path&#x2F;to&#x2F;ann.gff -T -o &#x2F;path&#x2F;to&#x2F;ann.gtf</span><br></pre></td></tr></table></figure>
+<h1 id="将gff注释转成gtf格式"><a href="#将gff注释转成gtf格式" class="headerlink" title="将gff注释转成gtf格式"></a>将gff注释转成gtf格式</h1><p>（使用cufflinks的gffread功能）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">gffread &#x2F;path&#x2F;to&#x2F;ann.gff -T -o &#x2F;path&#x2F;to&#x2F;ann.gtf</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="构建index文件（使用hisat2软件，事先建一个具有可读写权限的文件夹-path-to-index并在其中操作）"><a href="#构建index文件（使用hisat2软件，事先建一个具有可读写权限的文件夹-path-to-index并在其中操作）" class="headerlink" title="构建index文件（使用hisat2软件，事先建一个具有可读写权限的文件夹/path/to/index并在其中操作）"></a>构建index文件（使用hisat2软件，事先建一个具有可读写权限的文件夹/path/to/index并在其中操作）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hisat2_extract_exons.py ann.gtf &gt; exons.txt #提取外显子信息到名叫exons_kp的txt文档</span><br><span class="line">hisat2_extract_splice_sites.py ann.gtf &gt; ss.txt #提取可变剪贴信息到名叫ss_kp的txt文档</span><br><span class="line">hisat2-build -p 2 --ss ss.txt --exon exons.txt refseq.fa data #构建index索引</span><br></pre></td></tr></table></figure>
+<h1 id="构建index文件"><a href="#构建index文件" class="headerlink" title="构建index文件"></a>构建index文件</h1><p>（使用hisat2软件，事先建一个具有可读写权限的文件夹/path/to/index并在其中操作）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hisat2_extract_exons.py ann.gtf &gt; exons.txt #提取外显子信息到名叫exons的txt文档</span><br><span class="line">hisat2_extract_splice_sites.py ann.gtf &gt; ss.txt #提取可变剪贴信息到名叫ss的txt文档</span><br><span class="line">hisat2-build -p 2 --ss ss.txt --exon exons.txt refseq.fa data #构建index索引，里面的小文件命名为data</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="将样品的reads比对（align）到index索引中（在刚刚建立的index文件夹里使用hisat2软件）"><a href="#将样品的reads比对（align）到index索引中（在刚刚建立的index文件夹里使用hisat2软件）" class="headerlink" title="将样品的reads比对（align）到index索引中（在刚刚建立的index文件夹里使用hisat2软件）"></a>将样品的reads比对（align）到index索引中（在刚刚建立的index文件夹里使用hisat2软件）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">seqkit fq2fa data_1.fq -o data_1.fa #用seqkit软件将fq转换为fa</span><br><span class="line">seqkit fq2fa data_2.fq -o data_2.fa</span><br><span class="line">hisat2 -f -x &#x2F;path&#x2F;to&#x2F;index&#x2F;data -1 &#x2F;path&#x2F;to&#x2F;data_1.fa -2 &#x2F;path&#x2F;to&#x2F;data_2.fa -S &#x2F;path&#x2F;to&#x2F;out.sam</span><br></pre></td></tr></table></figure>
+<h1 id="将样品的reads比对到index索引中"><a href="#将样品的reads比对到index索引中" class="headerlink" title="将样品的reads比对到index索引中"></a>将样品的reads比对到index索引中</h1><p>（在刚刚建立的index/data文件夹里使用hisat2软件）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">seqkit fq2fa data_1.fq -o data_1.fa #用seqkit软件将fq转换为fa</span><br><span class="line">seqkit fq2fa data_2.fq -o data_2.fa</span><br><span class="line">hisat2 -f -x &#x2F;path&#x2F;to&#x2F;index&#x2F;data -1 &#x2F;path&#x2F;to&#x2F;data_1.fa -2 &#x2F;path&#x2F;to&#x2F;data_2.fa -S &#x2F;path&#x2F;to&#x2F;out.sam</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="转换sam文件到bam文件（节省存储空间，使用samtools）"><a href="#转换sam文件到bam文件（节省存储空间，使用samtools）" class="headerlink" title="转换sam文件到bam文件（节省存储空间，使用samtools）"></a>转换sam文件到bam文件（节省存储空间，使用samtools）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools view -bS out.sam &gt; out.bam</span><br></pre></td></tr></table></figure>
+<h1 id="转换sam文件到bam文件"><a href="#转换sam文件到bam文件" class="headerlink" title="转换sam文件到bam文件"></a>转换sam文件到bam文件</h1><p>（节省存储空间，使用samtools）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools view -bS out.sam &gt; out.bam</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="对bam文件进行排序（因为是双端测序，所以需要按照基因名称进行排序，使用samtools-sort功能）"><a href="#对bam文件进行排序（因为是双端测序，所以需要按照基因名称进行排序，使用samtools-sort功能）" class="headerlink" title="对bam文件进行排序（因为是双端测序，所以需要按照基因名称进行排序，使用samtools sort功能）"></a>对bam文件进行排序（因为是双端测序，所以需要按照基因名称进行排序，使用samtools sort功能）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools sort out.bam -o out_sorted.bam</span><br></pre></td></tr></table></figure>
+<h1 id="对bam文件进行排序"><a href="#对bam文件进行排序" class="headerlink" title="对bam文件进行排序"></a>对bam文件进行排序</h1><p>（因为是双端测序，所以需要按照基因名称进行排序，使用samtools sort功能）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools sort out.bam -o out_sorted.bam</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="对排序后的bam文件进行索引生成bai格式文件（samtools-index功能）"><a href="#对排序后的bam文件进行索引生成bai格式文件（samtools-index功能）" class="headerlink" title="对排序后的bam文件进行索引生成bai格式文件（samtools index功能）"></a>对排序后的bam文件进行索引生成bai格式文件（samtools index功能）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools index index_out_sorted.bam</span><br></pre></td></tr></table></figure>
+<h1 id="对排序后的bam文件进行索引"><a href="#对排序后的bam文件进行索引" class="headerlink" title="对排序后的bam文件进行索引"></a>对排序后的bam文件进行索引</h1><p>（使用samtools index功能，生成bai格式文件）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools index index_out_sorted.bam</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="查看bam文件比对效率（Windows下使用IGV软件进行可视化）"><a href="#查看bam文件比对效率（Windows下使用IGV软件进行可视化）" class="headerlink" title="查看bam文件比对效率（Windows下使用IGV软件进行可视化）"></a>查看bam文件比对效率（Windows下使用IGV软件进行可视化）</h1><h1 id="对回帖bam文件进行质量评估（使用samtools-flagstat功能）"><a href="#对回帖bam文件进行质量评估（使用samtools-flagstat功能）" class="headerlink" title="对回帖bam文件进行质量评估（使用samtools flagstat功能）"></a>对回帖bam文件进行质量评估（使用samtools flagstat功能）</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools flagstat out_sorted.bam &gt; out_sorted.flagstat</span><br><span class="line">cat out_sorted.flagstat</span><br></pre></td></tr></table></figure>
+<h1 id="查看bam文件比对效率"><a href="#查看bam文件比对效率" class="headerlink" title="查看bam文件比对效率"></a>查看bam文件比对效率</h1><p>（Windows下使用IGV软件进行可视化）</p>
+<h1 id="对回帖bam文件进行质量评估"><a href="#对回帖bam文件进行质量评估" class="headerlink" title="对回帖bam文件进行质量评估"></a>对回帖bam文件进行质量评估</h1><p>（使用samtools flagstat功能）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">samtools flagstat out_sorted.bam &gt; out_sorted.flagstat</span><br><span class="line">cat out_sorted.flagstat</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="使用htseq对bam文件进行counts计数"><a href="#使用htseq对bam文件进行counts计数" class="headerlink" title="使用htseq对bam文件进行counts计数"></a>使用htseq对bam文件进行counts计数</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">htseq-count -s no -r name -f bam -i transcript_id &#x2F;path&#x2F;to&#x2F;out_sorted.bam &#x2F;path&#x2F;to&#x2F;ann.gtf &gt;&#x2F;path&#x2F;to&#x2F;matrix.count 2&gt; &#x2F;path&#x2F;to&#x2F;counts.log</span><br></pre></td></tr></table></figure>
+<h1 id="对bam文件进行counts计数"><a href="#对bam文件进行counts计数" class="headerlink" title="对bam文件进行counts计数"></a>对bam文件进行counts计数</h1><p>（使用htseq软件）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">htseq-count -s no -r name -f bam -i transcript_id &#x2F;path&#x2F;to&#x2F;out_sorted.bam &#x2F;path&#x2F;to&#x2F;ann.gtf &gt;&#x2F;path&#x2F;to&#x2F;matrix.count 2&gt; &#x2F;path&#x2F;to&#x2F;counts.log</span><br></pre></td></tr></table></figure>
 
 
 <h1 id="RStudio安装Bioconductor"><a href="#RStudio安装Bioconductor" class="headerlink" title="RStudio安装Bioconductor"></a>RStudio安装Bioconductor</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!requireNamespace(<span class="string">&quot;BiocManager&quot;</span>, quietly = <span class="literal">TRUE</span>))</span><br><span class="line">    install.packages(<span class="string">&quot;BiocManager&quot;</span>)</span><br><span class="line">BiocManager::install(version = <span class="string">&quot;3.10&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="用RStudio合并counts文件为表达矩阵（以四个样本为例）"><a href="#用RStudio合并counts文件为表达矩阵（以四个样本为例）" class="headerlink" title="用RStudio合并counts文件为表达矩阵（以四个样本为例）"></a>用RStudio合并counts文件为表达矩阵（以四个样本为例）</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; control1&lt;-read.table(<span class="string">&quot;1.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;control1&quot;</span>))</span><br><span class="line">&gt; head(control1)</span><br><span class="line">&gt; control2&lt;-read.table(<span class="string">&quot;2.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;control2&quot;</span>))</span><br><span class="line">&gt; treat1&lt;-read.table(<span class="string">&quot;3.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;treat1&quot;</span>))</span><br><span class="line">&gt; treat2&lt;-read.table(<span class="string">&quot;4.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;treat2&quot;</span>))</span><br><span class="line">&gt; raw_count &lt;- merge(merge(control1, control2, by=<span class="string">&quot;transcript_id&quot;</span>), merge(treat1, treat2, by=<span class="string">&quot;transcript_id&quot;</span>))</span><br><span class="line"><span class="comment"># merge()函数只能从两个数据框中选择，不能超过两个，如果样本重复超过2个，需要进行多次merge操作</span></span><br><span class="line">&gt; head(raw_count)</span><br><span class="line">&gt; tail(raw_count)</span><br><span class="line">&gt; raw_count_filt &lt;- raw_count[-<span class="number">1</span>:-<span class="number">5</span>,]</span><br><span class="line">&gt; head(raw_count_filt)</span><br><span class="line">&gt; readcount&lt;-raw_count_filt[ ,-<span class="number">1</span>]</span><br><span class="line">&gt; write.csv(readcount, file=<span class="string">&#x27;readcount.csv&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="合并表达矩阵"><a href="#合并表达矩阵" class="headerlink" title="合并表达矩阵"></a>合并表达矩阵</h1><p>（使用RStudio，以四个样本为例）</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; control1&lt;-read.table(<span class="string">&quot;1.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;control1&quot;</span>))</span><br><span class="line">&gt; head(control1)</span><br><span class="line">&gt; control2&lt;-read.table(<span class="string">&quot;2.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;control2&quot;</span>))</span><br><span class="line">&gt; treat1&lt;-read.table(<span class="string">&quot;3.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;treat1&quot;</span>))</span><br><span class="line">&gt; treat2&lt;-read.table(<span class="string">&quot;4.count&quot;</span>,sep = <span class="string">&quot;\t&quot;</span>,col.names = <span class="built_in">c</span>(<span class="string">&quot;transcript_id&quot;</span>,<span class="string">&quot;treat2&quot;</span>))</span><br><span class="line">&gt; raw_count &lt;- merge(merge(control1, control2, by=<span class="string">&quot;transcript_id&quot;</span>), merge(treat1, treat2, by=<span class="string">&quot;transcript_id&quot;</span>))</span><br><span class="line"><span class="comment"># merge()函数只能从两个数据框中选择，不能超过两个，如果样本重复超过2个，需要进行多次merge操作</span></span><br><span class="line">&gt; head(raw_count)</span><br><span class="line">&gt; tail(raw_count)</span><br><span class="line">&gt; raw_count_filt &lt;- raw_count[-<span class="number">1</span>:-<span class="number">5</span>,]</span><br><span class="line">&gt; head(raw_count_filt)</span><br><span class="line">&gt; readcount&lt;-raw_count_filt[ ,-<span class="number">1</span>]</span><br><span class="line">&gt; write.csv(readcount, file=<span class="string">&#x27;readcount.csv&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
 
 <h1 id="差异表达分析"><a href="#差异表达分析" class="headerlink" title="差异表达分析"></a>差异表达分析</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; library(tidyverse)</span><br><span class="line">&gt; library(DESeq2)</span><br><span class="line">&gt; mycounts&lt;-read.csv(<span class="string">&quot;readcount+.csv&quot;</span>)</span><br><span class="line">&gt; head(mycounts)</span><br><span class="line">&gt; rownames(mycounts)&lt;-mycounts[,<span class="number">1</span>]</span><br><span class="line">&gt; mycounts&lt;-mycounts[,-<span class="number">1</span>] <span class="comment">#清掉第一列无用的序号</span></span><br><span class="line">&gt; head(mycounts)</span><br><span class="line">&gt; condition &lt;- factor(<span class="built_in">c</span>(<span class="built_in">rep</span>(<span class="string">&quot;control&quot;</span>,<span class="number">2</span>),<span class="built_in">rep</span>(<span class="string">&quot;treat&quot;</span>,<span class="number">2</span>)), levels = <span class="built_in">c</span>(<span class="string">&quot;control&quot;</span>,<span class="string">&quot;treat&quot;</span>))</span><br><span class="line">&gt; condition</span><br><span class="line">&gt; colData &lt;- data.frame(row.names=colnames(mycounts), condition)</span><br><span class="line">&gt; colData</span><br><span class="line">&gt; dds &lt;- DESeqDataSetFromMatrix(mycounts, colData, design= ~ condition)</span><br><span class="line">&gt; dds &lt;- DESeq(dds)</span><br><span class="line">&gt; dds</span><br><span class="line">&gt; res = results(dds, contrast=<span class="built_in">c</span>(<span class="string">&quot;condition&quot;</span>, <span class="string">&quot;control&quot;</span>, <span class="string">&quot;treat&quot;</span>))</span><br><span class="line">&gt; res= results(dds)</span><br><span class="line">&gt; res = res[order(res$pvalue),]</span><br><span class="line">&gt; head(res)</span><br><span class="line">&gt; summary(res) <span class="comment">#统计差异表达分析结果</span></span><br><span class="line"></span><br><span class="line">out of <span class="number">5403</span> with nonzero total read count</span><br><span class="line">adjusted p-value &lt; <span class="number">0.1</span></span><br><span class="line">LFC &gt; <span class="number">0</span> (up)       : <span class="number">63</span>, <span class="number">1.2</span>%</span><br><span class="line">LFC &lt; 0 (down)     : 15, 0.28%</span><br><span class="line">outliers [<span class="number">1</span>]       : <span class="number">0</span>, <span class="number">0</span>%</span><br><span class="line">low counts [2]     : 4503, 83%</span><br><span class="line">(mean count &lt; <span class="number">1502</span>)</span><br><span class="line">[<span class="number">1</span>] see <span class="string">&#x27;cooksCutoff&#x27;</span> argument of ?results</span><br><span class="line">[<span class="number">2</span>] see <span class="string">&#x27;independentFiltering&#x27;</span> argument of ?results</span><br><span class="line"></span><br><span class="line">&gt; write.csv(res,file=<span class="string">&quot;hahaha.csv&quot;</span>)</span><br><span class="line">&gt; table(res$padj&lt;<span class="number">0.05</span>)</span><br><span class="line"><span class="literal">FALSE</span>  <span class="literal">TRUE</span> </span><br><span class="line">  <span class="number">878</span>    <span class="number">22</span> </span><br></pre></td></tr></table></figure>
 
 
-<h1 id="绘制PCA图（在已完成上面差异表达基因分析的基础上进行）"><a href="#绘制PCA图（在已完成上面差异表达基因分析的基础上进行）" class="headerlink" title="绘制PCA图（在已完成上面差异表达基因分析的基础上进行）"></a>绘制PCA图（在已完成上面差异表达基因分析的基础上进行）</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; vsdata &lt;- vst(dds, blind=<span class="literal">FALSE</span>)</span><br><span class="line">&gt; plotPCA(vsdata, intgroup=<span class="string">&quot;condition&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="绘制PCA图"><a href="#绘制PCA图" class="headerlink" title="绘制PCA图"></a>绘制PCA图</h1><p>（在已完成上面差异表达基因分析的基础上进行）</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; vsdata &lt;- vst(dds, blind=<span class="literal">FALSE</span>)</span><br><span class="line">&gt; plotPCA(vsdata, intgroup=<span class="string">&quot;condition&quot;</span>)</span><br></pre></td></tr></table></figure>
 
 
-<h1 id="绘制热图（在已完成上面差异表达基因分析的基础上进行）"><a href="#绘制热图（在已完成上面差异表达基因分析的基础上进行）" class="headerlink" title="绘制热图（在已完成上面差异表达基因分析的基础上进行）"></a>绘制热图（在已完成上面差异表达基因分析的基础上进行）</h1><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; library(<span class="string">&quot;pheatmap&quot;</span>)</span><br><span class="line">&gt; select&lt;-order(rowMeans(counts(dds, normalized = <span class="literal">TRUE</span>)), decreasing = <span class="literal">TRUE</span>)[<span class="number">1</span>:<span class="number">20</span>]</span><br><span class="line">&gt; df &lt;- as.data.frame(colData(dds)[,<span class="built_in">c</span>(<span class="string">&quot;condition&quot;</span>,<span class="string">&quot;sizeFactor&quot;</span>)])</span><br><span class="line">&gt; ntd &lt;- normTransform(dds)</span><br><span class="line">&gt; pheatmap(assay(ntd)[select,], cluster_rows=<span class="literal">FALSE</span>, show_rownames=<span class="literal">FALSE</span>, cluster_cols=<span class="literal">FALSE</span>, annotation_col=df)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+<h1 id="绘制热图"><a href="#绘制热图" class="headerlink" title="绘制热图"></a>绘制热图</h1><p>（在已完成上面差异表达基因分析的基础上进行）</p>
+<figure class="highlight r"><table><tr><td class="code"><pre><span class="line">&gt; library(<span class="string">&quot;pheatmap&quot;</span>)</span><br><span class="line">&gt; select&lt;-order(rowMeans(counts(dds, normalized = <span class="literal">TRUE</span>)), decreasing = <span class="literal">TRUE</span>)[<span class="number">1</span>:<span class="number">20</span>]</span><br><span class="line">&gt; df &lt;- as.data.frame(colData(dds)[,<span class="built_in">c</span>(<span class="string">&quot;condition&quot;</span>,<span class="string">&quot;sizeFactor&quot;</span>)])</span><br><span class="line">&gt; ntd &lt;- normTransform(dds)</span><br><span class="line">&gt; pheatmap(assay(ntd)[select,], cluster_rows=<span class="literal">FALSE</span>, show_rownames=<span class="literal">FALSE</span>, cluster_cols=<span class="literal">FALSE</span>, annotation_col=df)</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>生信分析</category>
       </categories>
       <tags>
         <tag>转录组</tag>
+        <tag>生信</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>西西弗神话 - 摘抄</title>
+    <url>/posts/24235/</url>
+    <content><![CDATA[<h1 id="荒诞推理"><a href="#荒诞推理" class="headerlink" title="荒诞推理"></a>荒诞推理</h1><ol>
+<li><p>较低一个层次，就是诡谲性：发觉世界是“厚实”的，瞥见一块石头有多么的奇异，都叫我们无可奈何；大自然，比如一片风景，可以根本不理会我们。一切自然美的深处都藏着某些不合人情的东西，连绵山丘、柔媚天色、婆娑树荫，霎时间便失去了我们所赋予的幻想意义，从此比失去的天堂更遥远了。<u><em>世界原始的敌意，穿越几千年，又追向我们。</em></u>一时间我们莫名其妙，因为几百年间我们只是凭借形象和图画理解世界，而且这些形象和图画是我们预先赋予世界的，从此之后再使用这种人为的手段，我们就力莫能及了。世界逃脱了我们，再次显现出自己的本色。那些惯于蒙面的背景又恢复了本来面目，远离我们而去。</p>
+</li>
+<li><p>恐惧实际上来自事变毋庸置疑的层面。时间之所以使我们害怕，是时间展现数学般的演示，答案来自演示之后。所以关于灵魂的种种漂亮说法，在这里至少要稍为接受经验法对其对立面的检验。耳光括在僵死的躯体上留不下痕迹，灵魂已经出窍了。经历这个基本的、关键的层面，构成了荒诞感的内容。无用感在这种命运的死亡阴影下萌发了。血迹斑斑的数学规律支配着我们的生存状况，对此，任何道德、任何拼搏都无法先验地解释清楚。</p>
+</li>
+<li><p>所谓无意识感，就是强求亲切，渴望明了。<u><em>就人而言，理解世界，就是迫使世界具有人性，在世界上烙下人的印记。</em></u></p>
+</li>
+<li><p>假如我试图把握我所确认的这个我，并加以定位和概括，那么这个我只不过是一掬之水，会从我的指缝流走。我可以把“这个我”会摆出的各种面孔一张张描绘出来，还可以描绘别人给予“这个我”的各种面貌，包括其出身、教育、热忱或沉默、伟大或卑劣。但不可把面貌相加。这颗心即使属于我，我也永远无法确定。我对自己存在的确信和我对这种确信试图赋予的内容，两者之间的鸿沟，永远也填不满。<u><em>我永远是自己的陌路人。</em></u></p>
+</li>
+<li><p>瞧，比如树木吧，我熟悉树木的粗糙、水分，嗅得出树木的气味。草的芬芳，星的馥郁，夜晚，心情舒坦的某些晚上，我怎能否认我体验到了强而有力的世界？<u><em>然而，地球上的全部科学，压根儿不能使我确信这个世界是属于我的。</em></u>你们给我描绘世界，教我归类世界。你们列举地球的规律，在我渴求知识的时候，我同意地球的规律是真实的。你们剖析地球的机制，于是我的希望为之倍增。末了，你们告诉我神奇美好又多姿多彩的宇宙归结为原子，而原子又归结为电子。所有这一切好得很，我等着你们继往开来。但你们对我说有一种见不着的星球系统，有不少电子围绕一个核团团转动。你们用形象向我解释了世界。于是我看出你们是在做诗，那我就一辈子也弄不清楚了。我还没来得及发火，你们已经改变理论了，难道不是这样吗？这么说来，<u><em>本该教我懂得一切的科学在假设中就结束了，清醒的认识在隐喻中沉没了，不确定性在艺术作品中找到了归宿。</em></u>难道我先前需要付出这么多努力吗？与之相比，山丘柔和的线条和夜晚摸着激跳的心口，教给我更多的东西。言归正传，<u><em>如果说我通过科学懂得现象并一一历数，我却不能因此而说已理解世界。即使我用脚丈量过全球的高山峻岭，也不会知道得更多。</em></u>你们让我在写实和假设之间选择，写实是可靠的，但对我毫无教益，而假设即便对我有教益，却根本不可靠。我对自己对世界都陌生，唯一可依赖的，是用某种思想武装起来，而这种思想一旦肯定什么就否定自身；我惟有拒绝认知和摒弃生命才能得到安宁，而且好胜的愿望总是在藐视其冲击的藩篱上碰壁，这是怎样的状况呢？有志者，必挑起悖论。一切就绪，按部就班，就等着出现中了毒的安宁，那正是无忧无虑、心灵麻木或致命的摒弃所造成的。</p>
+</li>
+<li><p>海德格尔冷峻地审视了人生状况，宣告人类生存受到了凌辱。唯一的现实，是生灵在各个阶段的“忧虑”。对迷途于世的人及其排遣而言，这忧虑是一种转瞬即逝的恐慌。但恐慌一旦意识到自身，便成为焦虑，即清醒者永久的氛围，“在这种氛围中生存重新抬头”。这位教授使用最抽象的语言，手不发抖地写道：“人类生存的完整性和局限性比人本身处于更优先的地位。”</p>
+</li>
+</ol>
+<p>tbc.</p>
+]]></content>
+      <categories>
+        <category>读书笔记</category>
+      </categories>
+      <tags>
+        <tag>读书笔记</tag>
       </tags>
   </entry>
 </search>
