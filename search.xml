@@ -227,4 +227,25 @@
         <tag>基因组</tag>
       </tags>
   </entry>
+  <entry>
+    <title>用ReLERNN计算全基因组重组率景观</title>
+    <url>/posts/59035/</url>
+    <content><![CDATA[<p>ReLERNN是一个通过神经网络机器学习来计算全基因组局部重组率的软件，美中不足的是安装起来依赖环境太多且配置很麻烦，而且实际使用起来不能自定义滑动窗口大小，只能用软件内机器学习得出的最佳窗口大小（不知道后面会不会更新自定义窗口大小的功能）。</p>
+<h1 id="安装流程记录"><a href="#安装流程记录" class="headerlink" title="安装流程记录"></a>安装流程记录</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;kr-colab&#x2F;ReLERNN.git</span><br><span class="line">cd ReLERNN&#x2F;</span><br><span class="line">pip install</span><br><span class="line">#ERROR: You must give at least one requirement to install (see &quot;pip help install&quot;)</span><br><span class="line">pip install .</span><br></pre></td></tr></table></figure>
+
+<p>后续补充安装的一些包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pip install h5py</span><br><span class="line">pip install tensorflow</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#step 1: simulation</span><br><span class="line"></span><br><span class="line">ReLERNN_SIMULATE -v file.vcf \</span><br><span class="line">-g file.bed \</span><br><span class="line">-d &#x2F;path&#x2F;to&#x2F;output&#x2F; \</span><br><span class="line">-t 1 --phased</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#step 2: training neural network</span><br><span class="line"></span><br><span class="line">ReLERNN_TRAIN -d &#x2F;path&#x2F;to&#x2F;output&#x2F; \</span><br><span class="line">--gpuID 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#step 3: predicting recombination rate for single population</span><br><span class="line"></span><br><span class="line">ReLERNN_PREDICT -v file.vcf \</span><br><span class="line">-d &#x2F;path&#x2F;to&#x2F;output&#x2F; \</span><br><span class="line">--phased </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#step 4 (optional): generating 95% confidence intervals and correcting bias</span><br><span class="line">#这一步我一般不做，可能以后做非常精细的分析会用到？</span><br><span class="line"></span><br><span class="line">#ReLERNN_BSCORRECT -d &#x2F;path&#x2F;to&#x2F;output&#x2F; \</span><br><span class="line">#-t 1</span><br></pre></td></tr></table></figure>
+
+<p>ReLERNN官网：<a href="https://github.com/kr-colab/ReLERNN">https://github.com/kr-colab/ReLERNN</a><br>原始文献：<a href="https://doi.org/10.1093/molbev/msaa038">https://doi.org/10.1093/molbev/msaa038</a></p>
+]]></content>
+      <categories>
+        <category>生信分析</category>
+      </categories>
+      <tags>
+        <tag>生信</tag>
+        <tag>基因组</tag>
+      </tags>
+  </entry>
 </search>
