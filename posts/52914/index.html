@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="主要是关于fastsimcoal27的一些学习记录，因为这东西实在太折磨人了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用easySFS和fastsimcoal2模拟种群历史事件">
+<meta property="og:url" content="https://exhalationzone.github.io/posts/52914/index.html">
+<meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="主要是关于fastsimcoal27的一些学习记录，因为这东西实在太折磨人了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-14T05:45:04.122Z">
+<meta property="article:modified_time" content="2022-07-14T05:53:11.455Z">
+<meta property="article:author" content="Fc">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="基因组">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://exhalationzone.github.io/posts/52914/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>用easySFS和fastsimcoal2模拟种群历史事件 | Mirage</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Mirage</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There's a million things I haven't done. But just you wait.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#easySFS%E8%AE%A1%E7%AE%97sfs"><span class="nav-number">1.</span> <span class="nav-text">easySFS计算sfs</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85easySFS%E9%80%82%E7%94%A8%E7%9A%84conda%E7%8E%AF%E5%A2%83"><span class="nav-number">1.1.</span> <span class="nav-text">安装easySFS适用的conda环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%95%E8%BF%90%E8%A1%8C%EF%BC%8C%E5%B9%B6%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E9%9C%80%E8%A6%81down-sample"><span class="nav-number">1.2.</span> <span class="nav-text">试运行，并判断是否需要down sample</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%8D%E6%AC%A1%E8%BF%90%E8%A1%8C%E5%B9%B6%E7%94%9F%E6%88%90sfs%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">再次运行并生成sfs文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fastsimcoal2%E7%A7%8D%E7%BE%A4%E5%8E%86%E5%8F%B2%E6%A8%A1%E6%8B%9F"><span class="nav-number">2.</span> <span class="nav-text">fastsimcoal2种群历史模拟</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86%E5%92%8C%E6%80%9D%E8%B7%AF-%E2%96%B2"><span class="nav-number">2.1.</span> <span class="nav-text">基本原理和思路 ▲</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">输入文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#obs%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.1.</span> <span class="nav-text">obs文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tpl%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.2.</span> <span class="nav-text">tpl文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#est%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.3.</span> <span class="nav-text">est文件</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fc"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Fc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://exhalationzone.github.io/posts/52914/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Fc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用easySFS和fastsimcoal2模拟种群历史事件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-14 13:45:04 / 修改时间：13:53:11" itemprop="dateCreated datePublished" datetime="2022-07-14T13:45:04+08:00">2022-07-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">生信分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">主要是关于fastsimcoal27的一些学习记录，因为这东西实在太折磨人了。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="easySFS计算sfs"><a href="#easySFS计算sfs" class="headerlink" title="easySFS计算sfs"></a>easySFS计算sfs</h1><h2 id="安装easySFS适用的conda环境"><a href="#安装easySFS适用的conda环境" class="headerlink" title="安装easySFS适用的conda环境"></a>安装easySFS适用的conda环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">conda create -n easySFS</span><br><span class="line">conda activate easySFS</span><br><span class="line"></span><br><span class="line">#Install dependencies:</span><br><span class="line">conda install -c bioconda dadi pandas</span><br><span class="line"></span><br><span class="line">#Clone this repo: </span><br><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;isaacovercast&#x2F;easySFS.git</span><br><span class="line">cd easySFS</span><br><span class="line">chmod 777 easySFS.py</span><br><span class="line">.&#x2F;easySFS.py</span><br></pre></td></tr></table></figure>
+
+<h2 id="试运行，并判断是否需要down-sample"><a href="#试运行，并判断是否需要down-sample" class="headerlink" title="试运行，并判断是否需要down sample"></a>试运行，并判断是否需要down sample</h2><p>这一步是为missing data很多的情况准备的。easySFS对missing data的考虑并不如angsd那么周到，所以一般需要进行这一步，根据输出的文件判断是否要缩小后续采样数目：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;path&#x2F;to&#x2F;easySFS.py \</span><br><span class="line">-i &#x2F;path&#x2F;to&#x2F;file.vcf \</span><br><span class="line">-p pops_file.txt \</span><br><span class="line">--preview</span><br></pre></td></tr></table></figure>
+
+
+<p>根据官网的解释，这里生成的文件里，每个“（）”里面前面的数字代表采样投影数目（即projection），后面的代表这个数目下的frequency，要在考虑到样本数目的情况下选择frequency最大的projection数目。</p>
+<p>之前查到一个说法，说因为研究的对象是二倍体，所以project数目要全部乘二，但是【后续发现其实不需要乘二，因为是“down” sample，乘二会超出最高样本量限制，导致算出的sfs里所有数值都是0！】</p>
+<h2 id="再次运行并生成sfs文件"><a href="#再次运行并生成sfs文件" class="headerlink" title="再次运行并生成sfs文件"></a>再次运行并生成sfs文件</h2><p>上一步得到的projection数目会作为这一步里的一个参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;path&#x2F;to&#x2F;easySFS.py \</span><br><span class="line">-i &#x2F;path&#x2F;to&#x2F;file.vcf \</span><br><span class="line">-p pops_file.txt \</span><br><span class="line">--proj 27,22,13,13 #上一步得出的最佳projection数目，按顺序排列</span><br></pre></td></tr></table></figure>
+
+<p>这一步会自动生成output文件夹，里面按照具体需求分成了dadi和fastsimcoal会用到的数据。fastsimcoal2需要的文件是obs和sfs后缀的那些。</p>
+<h1 id="fastsimcoal2种群历史模拟"><a href="#fastsimcoal2种群历史模拟" class="headerlink" title="fastsimcoal2种群历史模拟"></a>fastsimcoal2种群历史模拟</h1><h2 id="基本原理和思路-▲"><a href="#基本原理和思路-▲" class="headerlink" title="基本原理和思路 ▲"></a>基本原理和思路 ▲</h2><p>fastsimcoal2的原理其实就是从现在到过去的<ins><em><strong>溯祖</strong></em></ins>过程，所以一切都需要反过来思考，比如瓶颈效应按照进化的时间顺序应该是从较大的种群规模变得更小，Ne是【减小】的，但在溯祖模型里就是从正在经历的瓶颈，即更小的种群规模回到了更大的规模，所以Ne是【增大】的。</p>
+<p>同理，种群的分化/split在这里就应该理解为“两个原先分开的种群合并为了一个”，再精确一些，应用在实际模型运行中，就是“两个原本分开的种群，其中一个种群中的全部个体都迁移到了另一个当中”，因此可以用migration参数为1的迁移事件表示一次历史上的种群split。</p>
+<p>这里的思路转换非常重要，因为所有模型构建都必须按照这个思路来进行。简单来讲，就是【从现在回到过去】模拟种群的历史。</p>
+<h2 id="输入文件"><a href="#输入文件" class="headerlink" title="输入文件"></a>输入文件</h2><h3 id="obs文件"><a href="#obs文件" class="headerlink" title="obs文件"></a>obs文件</h3><p>上一步运行easySFS得到的结果文件。如果使用其他软件比如angsd计算sfs，需要自己手动写很多obs后缀的文件，也就是写一行类似这样的开头：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 observation</span><br><span class="line">    d0_0  d0_1  d0_2  d0_3  d0_4  d0_5  d0_6  d0_7  d0_8  d0_9  d0_10 d0_11 d0_12 d0_13 d0_14 d0_15 d0_16 d0_17 d0_18 d0_19 d0_20 d0_21 d0_22 d0_23 d0_24 d0_25 d0_26 d0_27</span><br></pre></td></tr></table></figure>
+
+<p>然后把folded sfs的值（包含后半部分全是0的那些）复制到下一行就行了。你有几个种群，就需要写多少个两两比对的obs文件。为了便于这一步的计算，还是直接用easySFS算sfs比较好。</p>
+<h3 id="tpl文件"><a href="#tpl文件" class="headerlink" title="tpl文件"></a>tpl文件</h3><p>也就是template模板的意思。这个文件标明了一些很基础的参数，比如是否有基因流/瓶颈效应/种群扩张，有多少次，各发生在哪个时间段里。参数解释：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;Number of population samples (demes) #这里的demes数目是指从现在往回溯祖之前，【现今】总共有多少个种群</span><br><span class="line">4</span><br><span class="line">&#x2F;&#x2F;Population effective sizes (number of genes) #因为这里想要计算的未知参数之一就是现今的Ne，所以在这个文件里都会用字母表示这类需要软件计算的参数，相当于解方程时设置x和y的意思</span><br><span class="line">Nwfp</span><br><span class="line">Nckp</span><br><span class="line">Nhyb</span><br><span class="line">Ntw</span><br><span class="line">&#x2F;&#x2F;Sample sizes #因为研究物种是二倍体，所以这里是每个种群个体数×2</span><br><span class="line">54</span><br><span class="line">44</span><br><span class="line">26</span><br><span class="line">26</span><br><span class="line">&#x2F;&#x2F;Growth rates  : negative growth implies population expansion #我没有用到这个参数</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">0</span><br><span class="line">&#x2F;&#x2F;Number of migration matrices : 0 implies no migration between demes #这里没有用到基因流矩阵，所以没设置</span><br><span class="line">0</span><br><span class="line">&#x2F;&#x2F;historical event: time, source, sink, migrants, new size, new growth rate, migr. matrix </span><br><span class="line">#这七个参数分别的意思是：历史事件发生的时间，起源于哪个种群，终止于哪个种群，有多少比例的迁移&#x2F;基因流，该事件结束后终止种群的新规模是之前的多少倍，该事件结束后终止种群的新增长率，该事件发生时使用哪个基因流矩阵</span><br><span class="line">7  historical event </span><br><span class="line">T2BOT 2 2 0 RE2BOT 0 0</span><br><span class="line">T3BOT 3 3 0 RE3BOT 0 0</span><br><span class="line">T0BOT 0 0 0 RE0BOT 0 0</span><br><span class="line">T1BOT 1 1 0 RE1BOT 0 0</span><br><span class="line">Thyb 2 0 1 REhyb 0 0</span><br><span class="line">Ttw 3 1 1 REtw 0 0</span><br><span class="line">TANC 0 1 1 REANC 0 0</span><br><span class="line">&#x2F;&#x2F;Number of independent loci [chromosome]  #这里我没改</span><br><span class="line">1 0</span><br><span class="line">&#x2F;&#x2F;Per chromosome: Number of linkage blocks  #这里也没改</span><br><span class="line">1</span><br><span class="line">&#x2F;&#x2F;per Block: data type, num loci, rec. rate and mut rate + optional parameters #如果输入文件用的是empirical的sfs数据就用FREQ这个类型表示，突变率我设置了和stairway plot 2一样的数值，最后那个参数也没改</span><br><span class="line">FREQ 1 0 8.1e-10 OUTEXP</span><br></pre></td></tr></table></figure>
+
+<p>*关于这里的migration matrix：基因流矩阵，就是定义基因流方向的一个参数。我的个人理解如下表（以一个四种群模型为例）：</p>
+<table>
+<thead>
+<tr>
+<th>sink\source</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>A</strong></td>
+<td>/</td>
+<td>B→A</td>
+<td>C→A</td>
+<td>D→A</td>
+</tr>
+<tr>
+<td><strong>B</strong></td>
+<td>A→B</td>
+<td>/</td>
+<td>C→B</td>
+<td>D→B</td>
+</tr>
+<tr>
+<td><strong>C</strong></td>
+<td>A→C</td>
+<td>B→C</td>
+<td>/</td>
+<td>D→C</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>A→D</td>
+<td>B→D</td>
+<td>C→D</td>
+<td>/</td>
+</tr>
+</tbody></table>
+<p>按照这个矩阵，如果是一个只包含从A到C基因流的矩阵，写在tpl文件里就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0.000 0.000 0.000 0.000 </span><br><span class="line">0.000 0.000 0.000 0.000</span><br><span class="line">migAtoC 0.000 0.000 0.000</span><br><span class="line">0.000 0.000 0.000 0.000</span><br></pre></td></tr></table></figure>
+
+<p>如果同时包含A和C之间的双向基因流，又包含从B到D的单向基因流，那就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0.000 0.000 migCtoA 0.000 </span><br><span class="line">0.000 0.000 0.000 0.000</span><br><span class="line">migAtoC 0.000 0.000 0.000</span><br><span class="line">0.000 migBtoD 0.000 0.000</span><br></pre></td></tr></table></figure>
+
+<p>不包含任何基因流的矩阵就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0.000 0.000 0.000 0.000 </span><br><span class="line">0.000 0.000 0.000 0.000 </span><br><span class="line">0.000 0.000 0.000 0.000 </span><br><span class="line">0.000 0.000 0.000 0.000</span><br></pre></td></tr></table></figure>
+
+<h3 id="est文件"><a href="#est文件" class="headerlink" title="est文件"></a>est文件</h3><p>向软件解释每个参数的估算方式和范围的文件。从fsc2.7开始往后的版本里【不会再需要“RULES”这一栏】了，所以这个文件只会有两栏，“PARAMETERS”和“COMPLEX PARAMETERS”，其中前者表示简单的、没有彼此包含关系的参数，后者表示具有依赖和包含关系的参数，可以理解为后者是前者的因变量。示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Priors and rules file</span><br><span class="line">&#x2F;&#x2F; *********************</span><br><span class="line"></span><br><span class="line">[PARAMETERS]</span><br><span class="line">#这里的七个参数分别代表：是否为整数（1代表是，0代表否，我一般估算种群大小和时间的时候就设为1，如果估算的是增长率&#x2F;resize比例这种就设为0），</span><br><span class="line">#参数的名字，这个unif具体含义我没查到，最低值，最高值，是否输出结果，是否对该参数限制范围</span><br><span class="line">&#x2F;&#x2F;#isInt? #name   #dist.#min  #max</span><br><span class="line">&#x2F;&#x2F;all Ns are in number of haploid individuals</span><br><span class="line">1  Nwfp  unif 100  100000 output bounded</span><br><span class="line">1  Nckp  unif 1000  100000 output bounded</span><br><span class="line">1  Nhyb  unif 100  100000 output bounded</span><br><span class="line">1  Ntw  unif 100  100000 output bounded</span><br><span class="line">1  N2preBOT  unif 100  150000 output bounded</span><br><span class="line">1  N3preBOT  unif 100  150000 output bounded</span><br><span class="line">1  N0preBOT  unif 100  150000 output bounded</span><br><span class="line">1  N1preBOT  unif 100  600000 output bounded</span><br><span class="line">1  NAwfp  unif 100  100000 output bounded</span><br><span class="line">1  NAkp  unif 1000  100000 output bounded</span><br><span class="line">1  NANC  unif 1000  100000 output bounded</span><br><span class="line">1  Ttw  unif  10 600000 output bounded</span><br><span class="line">1  Thyb  unif  10 600000 output bounded</span><br><span class="line">1  TANC  unif  10 6000000 output bounded</span><br><span class="line">1  T2BOT  unif  10 600000 output bounded</span><br><span class="line">1  T3BOT  unif  10 600000 output bounded</span><br><span class="line">1  T0BOT  unif  10 600000 output bounded</span><br><span class="line">1  T1BOT  unif  10 600000 output bounded</span><br><span class="line"></span><br><span class="line">[RULES] #fsc2.7之后的版本都不再需要这个了</span><br><span class="line"></span><br><span class="line">[COMPLEX PARAMETERS]  #这里定义的都是需要依赖以上简单参数才能计算的那些参数，你需要在这里给定几个参数间的相关关系</span><br><span class="line">#有一点非常值得注意的是，这些参数的名字不能互为子集关系，比如两个参数的名字不能是“Nhyb”和“NhybBOT”，因为前者是后者的子集，所以软件会报错</span><br><span class="line">0 REhyb    &#x3D; NAwfp&#x2F;Nwfp hide</span><br><span class="line">0 REtw &#x3D; NAkp&#x2F;Nckp hide</span><br><span class="line">0 REANC &#x3D; NANC&#x2F;NAkp hide</span><br><span class="line">0 RE2BOT &#x3D; N2preBOT&#x2F;Nhyb hide</span><br><span class="line">0 RE3BOT &#x3D; N3preBOT&#x2F;Ntw hide</span><br><span class="line">0 RE0BOT &#x3D; N0preBOT&#x2F;Nwfp hide</span><br><span class="line">0 RE1BOT &#x3D; N1preBOT&#x2F;Nckp hide</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E4%BF%A1/" rel="tag"># 生信</a>
+              <a href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84/" rel="tag"># 基因组</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/33302/" rel="prev" title="用ANGSD和Stairway Plot2构建种群历史动态">
+                  <i class="fa fa-chevron-left"></i> 用ANGSD和Stairway Plot2构建种群历史动态
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fc</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+</body>
+</html>
