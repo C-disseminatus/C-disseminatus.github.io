@@ -530,4 +530,46 @@
         <tag>基因组</tag>
       </tags>
   </entry>
+  <entry>
+    <title>由自然选择驱动的物种形成及其相关的三个主要问题 - 2022</title>
+    <url>/posts/6278/</url>
+    <content><![CDATA[<p>原文：Schluter D, Rieseberg LH. 2022. Three problems in the genetics of speciation by selection. Proceedings of the National Academy of Sciences 119:e2122153119.</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>the link between the genetics of phenotypic divergence and intrinsic postzygotic reproductive barriers remains tenuous  -基因型或表型分化不一定就和合子【后】生殖隔离有关</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>It was not clear whether genetic differences causing reproductive isolation were mainly in the same genes responsible for phenotypic differences between species or whether, according to Dobzhansky, they represented “a separate category of genetic changes” (<a href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r3">3</a>).</p>
+<p>Standing genetic variation includes variants maintained by mutation and selection in ancestral populations prior to divergence, as well as variants flowing in from already differentiated populations and closely related species via interbreeding</p>
+<p>reproductive isolation is frequently a by-product of adaptive divergence between populations in phenotypic traits  -生殖隔离往往是两个种群适应性分化的“副产品”，一般来说是自然选择先偏好那些具有适应性的性状，然后到了某个程度，生殖隔离才意外形成的。</p>
+<h1 id="表型分化与生殖隔离的演化"><a href="#表型分化与生殖隔离的演化" class="headerlink" title="表型分化与生殖隔离的演化"></a>表型分化与生殖隔离的演化</h1><h2 id="表型分化与合子前隔离的遗传学机制"><a href="#表型分化与合子前隔离的遗传学机制" class="headerlink" title="表型分化与合子前隔离的遗传学机制"></a>表型分化与合子前隔离的遗传学机制</h2><p>适应性性状有助于合子【前】生殖隔离的形成。eg：花粉的不同颜色吸引不同的传粉动物，导致不同种开花植物的分化和生殖隔离。但问题在于如果这种性状是多基因共同决定的（polygenic），那么寻找特定的某个决定性基因就会很困难。</p>
+<p>unless recombination is slowed by linkage or eliminated by pleiotropy (<a href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r22">22</a>)  -重组率的降低可以因为连锁，也可以是因为基因多效性（个人理解：如果一个基因在原有的位置上就可以决定多个性状，那么它就不需要通过重组去到更多其他地方以便决定更多性状了，所以基因多效性的存在可以抑制重组的发生）</p>
+<p>如果一个决定性的基因出现在重组率低的区域上（比如inversion存在的区域），那么检测决定特定性状的基因就会更易被干扰。（所以需要通过其他方法排除inversion的干扰？如果某个区域没有明显的inversion但依然和表型分化相关，那么这个区域上存在决定性基因的可能性就会更大？）</p>
+<h2 id="表型分化与合子后隔离的遗传学机制"><a href="#表型分化与合子后隔离的遗传学机制" class="headerlink" title="表型分化与合子后隔离的遗传学机制"></a>表型分化与合子后隔离的遗传学机制</h2><p>合子后生殖隔离可以作为一种表型适应的副产品产生，但是至今很少有人真的证明发生在某个基因的选择和两个物种的分化之间存在必然联系。这有可能是因为在野生种群里做这样的实验验证很难，但也有可能是因为一些常见性状（ordinary phenotypic traits）所受到的选择和两个物种的进化根本就没有关联。（eg：某种叫<em>Mimulus guttatus</em>的花在不同地区适应性不同的种群之间如果杂交，产生的后代会致死。但这个致死性不是因为决定它们不同适应性的基因<em>Tol1</em>，而是因为一个和它连锁而被搭便车获得高频率的突变）</p>
+<p>Measurement of “phenotypic incompatibilities” represents another way to test causal links between phenotypic adaptation and genes causing postzygotic isolation. Hybrids between ecologically divergent parents are partly intermediate in many traits, which is expected to reduce hybrid viability and reproductive success in the absence of a hybrid niche. Such disruptive selection should cause fitness underdominance at causal loci and negative epistasis for fitness between them, although these have not been measured.  -理论上表型的不适应性与导致合子后隔离的基因之间的关系应该是很好测量的，比如杂交后代的遗传学特性（决定性位点的超显性和负上位效应），但出于各种原因这些效应至今都没有人具体测量过。</p>
+<h2 id="遗传冲突与合子后隔离"><a href="#遗传冲突与合子后隔离" class="headerlink" title="遗传冲突与合子后隔离"></a>遗传冲突与合子后隔离</h2><p>A separate class of mechanisms underlying hybrid inviability and sterility result from gene–gene coevolution without necessarily resulting in phenotypic divergence.</p>
+<p>Conflict between nuclear and cytoplasmic genes over offspring sex allocation is pervasive in plants and a frequent cause of postzygotic isolation in hybrids.</p>
+<h2 id="在分化中造成损失的重复基因"><a href="#在分化中造成损失的重复基因" class="headerlink" title="在分化中造成损失的重复基因"></a>在分化中造成损失的重复基因</h2><p>如果一个基因有两个重复拷贝，在一个种群中其中一个拷贝被silenced掉了，而在另一个种群中另一个拷贝被silenced掉了，那么这两个种群的杂交后代就可能同时被继承两个亲本的基因型，从而完全丧失掉这个基因并导致致死性或者不育，但这两个亲本种群在表型上反而是一模一样的，所以这种情况下也无法通过测量表型来反映出哪些基因才是决定这种差异的。</p>
+<h1 id="重组抑制元件（Recombination-Suppressors）在成种过程中的作用"><a href="#重组抑制元件（Recombination-Suppressors）在成种过程中的作用" class="headerlink" title="重组抑制元件（Recombination Suppressors）在成种过程中的作用"></a>重组抑制元件（<strong>Recombination Suppressors</strong>）在成种过程中的作用</h1><p>-自然选择、基因流和重组之间的关系：Whereas divergent natural selection drives populations apart, gene flow and recombination hold them together.</p>
+<p>大多数时候，与局部适应有关的traits都和染色体inversion或者其他重组抑制元件（Recombination Suppressors）存在关联</p>
+<h2 id="这一事物在成种中的作用"><a href="#这一事物在成种中的作用" class="headerlink" title="这一事物在成种中的作用"></a>这一事物在成种中的作用</h2><p>-加速物种的形成</p>
+<p>在那些局部适应性强的基因和其他基因之间降低的重组率使得物种形成速度更快。但尽管如此，局部适应性强的基因本身就可以充当reproductive barriers。</p>
+<p>Inversions appear to contribute more frequently to extrinsic than intrinsic reproductive barriers (<a href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r78">78</a>, <a href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r81">81</a>), but observations of reduced fertility in inversion heterozygotes (i.e., underdominance) are not uncommon, especially in interspecific crosses (<a href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r82">82</a>).  -inversion更常对外在而非内在的生殖隔离产生贡献（外在和内在是指合子前和合子后吗？）</p>
+<h2 id="重组抑制元件的类型"><a href="#重组抑制元件的类型" class="headerlink" title="重组抑制元件的类型"></a>重组抑制元件的类型</h2><p>1、inversion  染色体倒位</p>
+<p>2、其他结构变异，比如deletions、translocations和mobile element insertions</p>
+<p>3、modifier alleles  调控基因，即影响其他基因表型或者表达量的基因</p>
+<p>While the prevalence of structural variants versus local modifier alleles is poorly understood, the former spread more easily because they are completely linked to the genes they affect and suppress recombination in heterozygotes only (<a href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r57">57</a>).</p>
+<h2 id="重组抑制元件如何发挥作用"><a href="#重组抑制元件如何发挥作用" class="headerlink" title="重组抑制元件如何发挥作用"></a>重组抑制元件如何发挥作用</h2><p>Inversions that capture a larger number of coselected alleles that are loosely linked in the ancestral population will have the greatest selective advantage. </p>
+<p>Recombination suppressors may spread for other reasons, including direct selection (e.g., due to beneficial breakpoint effects), genetic drift of neutral or weakly deleterious variants, meiotic drive, or as a response to selfish element invasions.</p>
+<p>A further complication is that many inversions are *<strong>ancient*</strong> and their current gene content and mutation profile are likely to be different from when they arose.</p>
+<p>The distribution of inversion lengths within and between species can offer clues to the mechanisms responsible for their spread. </p>
+<h1 id="影响生殖隔离的遗传变异的来源"><a href="#影响生殖隔离的遗传变异的来源" class="headerlink" title="影响生殖隔离的遗传变异的来源"></a>影响生殖隔离的遗传变异的来源</h1><p>standing genetic variation在物种形成中发挥的作用尚不明确。大部分研究选取的都是具有表型差异的年轻物种，这可能会导致没有办法准确区分standing variation和new mutation。</p>
+<p>另外，大部分关于standing variation的研究都着重于它对表型差异的影响，而非对生殖隔离的影响。</p>
+<p>standing variation对于演化造成的可能结果：由于是多个支系共有的变异，所以很可能会在不同的地区形成平行演化，甚至孕育出生殖隔离。</p>
+]]></content>
+      <categories>
+        <category>读文章</category>
+      </categories>
+      <tags>
+        <tag>进化生物学</tag>
+        <tag>物种形成</tag>
+        <tag>读文章笔记</tag>
+      </tags>
+  </entry>
 </search>

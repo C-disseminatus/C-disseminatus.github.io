@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="一篇今年新发的综述，主要描述speciation by selection相关研究需要关注的三个问题：表型分化与合子后生殖隔离的不相关性、重组抑制元件的影响和既有遗传变异。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="由自然选择驱动的物种形成及其相关的三个主要问题 - 2022">
+<meta property="og:url" content="https://exhalationzone.github.io/posts/6278/index.html">
+<meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="一篇今年新发的综述，主要描述speciation by selection相关研究需要关注的三个问题：表型分化与合子后生殖隔离的不相关性、重组抑制元件的影响和既有遗传变异。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-22T08:54:29.263Z">
+<meta property="article:modified_time" content="2022-07-22T08:59:00.949Z">
+<meta property="article:author" content="Fc">
+<meta property="article:tag" content="进化生物学">
+<meta property="article:tag" content="物种形成">
+<meta property="article:tag" content="读文章笔记">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://exhalationzone.github.io/posts/6278/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>由自然选择驱动的物种形成及其相关的三个主要问题 - 2022 | Mirage</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Mirage</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There's a million things I haven't done, but just you wait.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">2.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E5%9E%8B%E5%88%86%E5%8C%96%E4%B8%8E%E7%94%9F%E6%AE%96%E9%9A%94%E7%A6%BB%E7%9A%84%E6%BC%94%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">表型分化与生殖隔离的演化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%9E%8B%E5%88%86%E5%8C%96%E4%B8%8E%E5%90%88%E5%AD%90%E5%89%8D%E9%9A%94%E7%A6%BB%E7%9A%84%E9%81%97%E4%BC%A0%E5%AD%A6%E6%9C%BA%E5%88%B6"><span class="nav-number">3.1.</span> <span class="nav-text">表型分化与合子前隔离的遗传学机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%9E%8B%E5%88%86%E5%8C%96%E4%B8%8E%E5%90%88%E5%AD%90%E5%90%8E%E9%9A%94%E7%A6%BB%E7%9A%84%E9%81%97%E4%BC%A0%E5%AD%A6%E6%9C%BA%E5%88%B6"><span class="nav-number">3.2.</span> <span class="nav-text">表型分化与合子后隔离的遗传学机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%97%E4%BC%A0%E5%86%B2%E7%AA%81%E4%B8%8E%E5%90%88%E5%AD%90%E5%90%8E%E9%9A%94%E7%A6%BB"><span class="nav-number">3.3.</span> <span class="nav-text">遗传冲突与合子后隔离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%88%86%E5%8C%96%E4%B8%AD%E9%80%A0%E6%88%90%E6%8D%9F%E5%A4%B1%E7%9A%84%E9%87%8D%E5%A4%8D%E5%9F%BA%E5%9B%A0"><span class="nav-number">3.4.</span> <span class="nav-text">在分化中造成损失的重复基因</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E7%BB%84%E6%8A%91%E5%88%B6%E5%85%83%E4%BB%B6%EF%BC%88Recombination-Suppressors%EF%BC%89%E5%9C%A8%E6%88%90%E7%A7%8D%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">重组抑制元件（Recombination Suppressors）在成种过程中的作用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%99%E4%B8%80%E4%BA%8B%E7%89%A9%E5%9C%A8%E6%88%90%E7%A7%8D%E4%B8%AD%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">这一事物在成种中的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E7%BB%84%E6%8A%91%E5%88%B6%E5%85%83%E4%BB%B6%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.2.</span> <span class="nav-text">重组抑制元件的类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E7%BB%84%E6%8A%91%E5%88%B6%E5%85%83%E4%BB%B6%E5%A6%82%E4%BD%95%E5%8F%91%E6%8C%A5%E4%BD%9C%E7%94%A8"><span class="nav-number">4.3.</span> <span class="nav-text">重组抑制元件如何发挥作用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%B1%E5%93%8D%E7%94%9F%E6%AE%96%E9%9A%94%E7%A6%BB%E7%9A%84%E9%81%97%E4%BC%A0%E5%8F%98%E5%BC%82%E7%9A%84%E6%9D%A5%E6%BA%90"><span class="nav-number">5.</span> <span class="nav-text">影响生殖隔离的遗传变异的来源</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fc"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Fc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://exhalationzone.github.io/posts/6278/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Fc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          由自然选择驱动的物种形成及其相关的三个主要问题 - 2022
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-22 16:54:29 / 修改时间：16:59:00" itemprop="dateCreated datePublished" datetime="2022-07-22T16:54:29+08:00">2022-07-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">读文章</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">一篇今年新发的综述，主要描述speciation by selection相关研究需要关注的三个问题：表型分化与合子后生殖隔离的不相关性、重组抑制元件的影响和既有遗传变异。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>原文：Schluter D, Rieseberg LH. 2022. Three problems in the genetics of speciation by selection. Proceedings of the National Academy of Sciences 119:e2122153119.</p>
+<h1 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h1><p>the link between the genetics of phenotypic divergence and intrinsic postzygotic reproductive barriers remains tenuous  -基因型或表型分化不一定就和合子【后】生殖隔离有关</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>It was not clear whether genetic differences causing reproductive isolation were mainly in the same genes responsible for phenotypic differences between species or whether, according to Dobzhansky, they represented “a separate category of genetic changes” (<a target="_blank" rel="noopener" href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r3">3</a>).</p>
+<p>Standing genetic variation includes variants maintained by mutation and selection in ancestral populations prior to divergence, as well as variants flowing in from already differentiated populations and closely related species via interbreeding</p>
+<p>reproductive isolation is frequently a by-product of adaptive divergence between populations in phenotypic traits  -生殖隔离往往是两个种群适应性分化的“副产品”，一般来说是自然选择先偏好那些具有适应性的性状，然后到了某个程度，生殖隔离才意外形成的。</p>
+<h1 id="表型分化与生殖隔离的演化"><a href="#表型分化与生殖隔离的演化" class="headerlink" title="表型分化与生殖隔离的演化"></a>表型分化与生殖隔离的演化</h1><h2 id="表型分化与合子前隔离的遗传学机制"><a href="#表型分化与合子前隔离的遗传学机制" class="headerlink" title="表型分化与合子前隔离的遗传学机制"></a>表型分化与合子前隔离的遗传学机制</h2><p>适应性性状有助于合子【前】生殖隔离的形成。eg：花粉的不同颜色吸引不同的传粉动物，导致不同种开花植物的分化和生殖隔离。但问题在于如果这种性状是多基因共同决定的（polygenic），那么寻找特定的某个决定性基因就会很困难。</p>
+<p>unless recombination is slowed by linkage or eliminated by pleiotropy (<a target="_blank" rel="noopener" href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r22">22</a>)  -重组率的降低可以因为连锁，也可以是因为基因多效性（个人理解：如果一个基因在原有的位置上就可以决定多个性状，那么它就不需要通过重组去到更多其他地方以便决定更多性状了，所以基因多效性的存在可以抑制重组的发生）</p>
+<p>如果一个决定性的基因出现在重组率低的区域上（比如inversion存在的区域），那么检测决定特定性状的基因就会更易被干扰。（所以需要通过其他方法排除inversion的干扰？如果某个区域没有明显的inversion但依然和表型分化相关，那么这个区域上存在决定性基因的可能性就会更大？）</p>
+<h2 id="表型分化与合子后隔离的遗传学机制"><a href="#表型分化与合子后隔离的遗传学机制" class="headerlink" title="表型分化与合子后隔离的遗传学机制"></a>表型分化与合子后隔离的遗传学机制</h2><p>合子后生殖隔离可以作为一种表型适应的副产品产生，但是至今很少有人真的证明发生在某个基因的选择和两个物种的分化之间存在必然联系。这有可能是因为在野生种群里做这样的实验验证很难，但也有可能是因为一些常见性状（ordinary phenotypic traits）所受到的选择和两个物种的进化根本就没有关联。（eg：某种叫<em>Mimulus guttatus</em>的花在不同地区适应性不同的种群之间如果杂交，产生的后代会致死。但这个致死性不是因为决定它们不同适应性的基因<em>Tol1</em>，而是因为一个和它连锁而被搭便车获得高频率的突变）</p>
+<p>Measurement of “phenotypic incompatibilities” represents another way to test causal links between phenotypic adaptation and genes causing postzygotic isolation. Hybrids between ecologically divergent parents are partly intermediate in many traits, which is expected to reduce hybrid viability and reproductive success in the absence of a hybrid niche. Such disruptive selection should cause fitness underdominance at causal loci and negative epistasis for fitness between them, although these have not been measured.  -理论上表型的不适应性与导致合子后隔离的基因之间的关系应该是很好测量的，比如杂交后代的遗传学特性（决定性位点的超显性和负上位效应），但出于各种原因这些效应至今都没有人具体测量过。</p>
+<h2 id="遗传冲突与合子后隔离"><a href="#遗传冲突与合子后隔离" class="headerlink" title="遗传冲突与合子后隔离"></a>遗传冲突与合子后隔离</h2><p>A separate class of mechanisms underlying hybrid inviability and sterility result from gene–gene coevolution without necessarily resulting in phenotypic divergence.</p>
+<p>Conflict between nuclear and cytoplasmic genes over offspring sex allocation is pervasive in plants and a frequent cause of postzygotic isolation in hybrids.</p>
+<h2 id="在分化中造成损失的重复基因"><a href="#在分化中造成损失的重复基因" class="headerlink" title="在分化中造成损失的重复基因"></a>在分化中造成损失的重复基因</h2><p>如果一个基因有两个重复拷贝，在一个种群中其中一个拷贝被silenced掉了，而在另一个种群中另一个拷贝被silenced掉了，那么这两个种群的杂交后代就可能同时被继承两个亲本的基因型，从而完全丧失掉这个基因并导致致死性或者不育，但这两个亲本种群在表型上反而是一模一样的，所以这种情况下也无法通过测量表型来反映出哪些基因才是决定这种差异的。</p>
+<h1 id="重组抑制元件（Recombination-Suppressors）在成种过程中的作用"><a href="#重组抑制元件（Recombination-Suppressors）在成种过程中的作用" class="headerlink" title="重组抑制元件（Recombination Suppressors）在成种过程中的作用"></a>重组抑制元件（<strong>Recombination Suppressors</strong>）在成种过程中的作用</h1><p>-自然选择、基因流和重组之间的关系：Whereas divergent natural selection drives populations apart, gene flow and recombination hold them together.</p>
+<p>大多数时候，与局部适应有关的traits都和染色体inversion或者其他重组抑制元件（Recombination Suppressors）存在关联</p>
+<h2 id="这一事物在成种中的作用"><a href="#这一事物在成种中的作用" class="headerlink" title="这一事物在成种中的作用"></a>这一事物在成种中的作用</h2><p>-加速物种的形成</p>
+<p>在那些局部适应性强的基因和其他基因之间降低的重组率使得物种形成速度更快。但尽管如此，局部适应性强的基因本身就可以充当reproductive barriers。</p>
+<p>Inversions appear to contribute more frequently to extrinsic than intrinsic reproductive barriers (<a target="_blank" rel="noopener" href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r78">78</a>, <a target="_blank" rel="noopener" href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r81">81</a>), but observations of reduced fertility in inversion heterozygotes (i.e., underdominance) are not uncommon, especially in interspecific crosses (<a target="_blank" rel="noopener" href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r82">82</a>).  -inversion更常对外在而非内在的生殖隔离产生贡献（外在和内在是指合子前和合子后吗？）</p>
+<h2 id="重组抑制元件的类型"><a href="#重组抑制元件的类型" class="headerlink" title="重组抑制元件的类型"></a>重组抑制元件的类型</h2><p>1、inversion  染色体倒位</p>
+<p>2、其他结构变异，比如deletions、translocations和mobile element insertions</p>
+<p>3、modifier alleles  调控基因，即影响其他基因表型或者表达量的基因</p>
+<p>While the prevalence of structural variants versus local modifier alleles is poorly understood, the former spread more easily because they are completely linked to the genes they affect and suppress recombination in heterozygotes only (<a target="_blank" rel="noopener" href="https://www.pnas.org/doi/10.1073/pnas.2122153119#core-r57">57</a>).</p>
+<h2 id="重组抑制元件如何发挥作用"><a href="#重组抑制元件如何发挥作用" class="headerlink" title="重组抑制元件如何发挥作用"></a>重组抑制元件如何发挥作用</h2><p>Inversions that capture a larger number of coselected alleles that are loosely linked in the ancestral population will have the greatest selective advantage. </p>
+<p>Recombination suppressors may spread for other reasons, including direct selection (e.g., due to beneficial breakpoint effects), genetic drift of neutral or weakly deleterious variants, meiotic drive, or as a response to selfish element invasions.</p>
+<p>A further complication is that many inversions are *<strong>ancient*</strong> and their current gene content and mutation profile are likely to be different from when they arose.</p>
+<p>The distribution of inversion lengths within and between species can offer clues to the mechanisms responsible for their spread. </p>
+<h1 id="影响生殖隔离的遗传变异的来源"><a href="#影响生殖隔离的遗传变异的来源" class="headerlink" title="影响生殖隔离的遗传变异的来源"></a>影响生殖隔离的遗传变异的来源</h1><p>standing genetic variation在物种形成中发挥的作用尚不明确。大部分研究选取的都是具有表型差异的年轻物种，这可能会导致没有办法准确区分standing variation和new mutation。</p>
+<p>另外，大部分关于standing variation的研究都着重于它对表型差异的影响，而非对生殖隔离的影响。</p>
+<p>standing variation对于演化造成的可能结果：由于是多个支系共有的变异，所以很可能会在不同的地区形成平行演化，甚至孕育出生殖隔离。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BF%9B%E5%8C%96%E7%94%9F%E7%89%A9%E5%AD%A6/" rel="tag"># 进化生物学</a>
+              <a href="/tags/%E7%89%A9%E7%A7%8D%E5%BD%A2%E6%88%90/" rel="tag"># 物种形成</a>
+              <a href="/tags/%E8%AF%BB%E6%96%87%E7%AB%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 读文章笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/52914/" rel="prev" title="用easySFS和fastsimcoal2模拟种群历史事件">
+                  <i class="fa fa-chevron-left"></i> 用easySFS和fastsimcoal2模拟种群历史事件
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fc</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+
+</body>
+</html>
