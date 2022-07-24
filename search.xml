@@ -572,4 +572,24 @@
         <tag>读文章笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>为什么我们不赞成那些执迷于鉴定出所有barrier loci的做法？ - 2017</title>
+    <url>/posts/1773/</url>
+    <content><![CDATA[<p>原文：Jiggins C D, Martin S H. Glittering gold and the quest for Isla de Muerta[J]. Journal of Evolutionary Biology, 2017, 30(8): 1509-1511.</p>
+<h1 id="主要论点"><a href="#主要论点" class="headerlink" title="主要论点"></a>主要论点</h1><p>反对那些执着于通过全基因组扫描（genomic scan）寻找物种隔离关键位点（barrier loci）的做法，因为这样做既困难有可能让研究者们错过其他更有价值的speciation genomic相关信息（比如genomic architecture本身）</p>
+<h1 id="为什么寻找barrier-loci几乎是不可能的？"><a href="#为什么寻找barrier-loci几乎是不可能的？" class="headerlink" title="为什么寻找barrier loci几乎是不可能的？"></a>为什么寻找barrier loci几乎是不可能的？</h1><h2 id="①两个物种间的barriers可能是由多个基因共同决定（polygenic）的"><a href="#①两个物种间的barriers可能是由多个基因共同决定（polygenic）的" class="headerlink" title="①两个物种间的barriers可能是由多个基因共同决定（polygenic）的"></a>①两个物种间的barriers可能是由多个基因共同决定（polygenic）的</h2><p>许多本身功能无穷微弱但彼此不相容（incompatibility loci）的位点也可以导致很强的对基因流的抗性，或是导致杂交后代的全基因组冻结（失效？genome-wide congealing）</p>
+<p>这样的barriers还有可能是因为其他的因素形成的，比如局部重组率的变化、基因密度、种群历史动态的随机性（demographic stochasticity），“不是所有金子都会发光（<em>All that is gold does not glitter</em>）”</p>
+<h2 id="②对于大多数物种对而言，起主要作用的性状往往会有很多barrier-loci，而不是具体的少数几个"><a href="#②对于大多数物种对而言，起主要作用的性状往往会有很多barrier-loci，而不是具体的少数几个" class="headerlink" title="②对于大多数物种对而言，起主要作用的性状往往会有很多barrier loci，而不是具体的少数几个"></a>②对于大多数物种对而言，起主要作用的性状往往会有很多barrier loci，而不是具体的少数几个</h2><p>eg：<em>Heliconius</em>蝴蝶的wing pattern差异很大，但这种差异反映在基因组层面上时，有很多FST峰值区域，但这些峰值涉及的基因远远不止跟wing pattern相关的那些，而直接和wing pattern差异相关的基因可能也不会在genome scan中展现出非常明显的差异，需要更多其它有针对性的分析来辅助。这些在genome scan中隐藏起来了的barrier loci就像Jack Sparrow船长在加勒比海盗里说的一样，“除了那些原本就清楚它们在哪儿的人之外，根本无法被找到（<em>cannot be found except by those who already know where it is</em>）”</p>
+<h2 id="③什么时候更容易找到具有关键作用的barrier-loci？两个物种亲缘关系很近（background-FST≈0）且杂交概率很高的时候"><a href="#③什么时候更容易找到具有关键作用的barrier-loci？两个物种亲缘关系很近（background-FST≈0）且杂交概率很高的时候" class="headerlink" title="③什么时候更容易找到具有关键作用的barrier loci？两个物种亲缘关系很近（background FST≈0）且杂交概率很高的时候"></a>③什么时候更容易找到具有关键作用的barrier loci？两个物种亲缘关系很近（background FST≈0）且杂交概率很高的时候</h2><h2 id="④全基因组信号往往是噪音很大的，要从中筛选出很短的关键barrier-loci非常困难"><a href="#④全基因组信号往往是噪音很大的，要从中筛选出很短的关键barrier-loci非常困难" class="headerlink" title="④全基因组信号往往是噪音很大的，要从中筛选出很短的关键barrier loci非常困难"></a>④全基因组信号往往是噪音很大的，要从中筛选出很短的关键barrier loci非常困难</h2><p>eg：还是<em>Heliconius</em>蝴蝶，一段关键的“dennis” locus ——<em>optix</em>基因只有6kb，这在genome scan当中其实是很难被找出来的，除非结合其他mapping手段或基因表达分析</p>
+<h1 id="对物种barrier具有直接贡献的loci在基因组上很可能并没有什么具体的作用"><a href="#对物种barrier具有直接贡献的loci在基因组上很可能并没有什么具体的作用" class="headerlink" title="对物种barrier具有直接贡献的loci在基因组上很可能并没有什么具体的作用"></a>对物种barrier具有直接贡献的loci在基因组上很可能并没有什么具体的作用</h1><p>eg：F1杂交后代所受到的epistatic incompatibilities也可能会导致基因组上微弱却广泛分布的barriers</p>
+<h1 id="对于speciation-genomics而言更重要的在于探索genome-architecture本身的影响，而非仅仅执着于鉴定出所有barrier-loci"><a href="#对于speciation-genomics而言更重要的在于探索genome-architecture本身的影响，而非仅仅执着于鉴定出所有barrier-loci" class="headerlink" title="对于speciation genomics而言更重要的在于探索genome architecture本身的影响，而非仅仅执着于鉴定出所有barrier loci"></a>对于speciation genomics而言更重要的在于探索genome architecture本身的影响，而非仅仅执着于鉴定出所有barrier loci</h1>]]></content>
+      <categories>
+        <category>读文章</category>
+      </categories>
+      <tags>
+        <tag>进化生物学</tag>
+        <tag>物种形成</tag>
+        <tag>读文章笔记</tag>
+      </tags>
+  </entry>
 </search>
