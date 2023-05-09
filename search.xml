@@ -592,4 +592,27 @@
         <tag>读文章笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>复合病毒（multipartite virus）通过诈骗进化</title>
+    <url>/posts/39585/</url>
+    <content><![CDATA[<p>原文：<a href="https://doi.org/10.1371/journal.pbio.3002092">https://doi.org/10.1371/journal.pbio.3002092</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>纳米病毒（Nanoviridae）是一类很特殊的病毒，它们的基因组被分成不同的部分（segments），每个病毒颗粒里只包含完整基因组的一小段。这种病毒的存在带来了一个困惑：这种生存模式有其显而易见的代价，因为复制只有在所有片段均出现在同一宿主的情况下才能进行，但既然有这么大的代价，为什么这种病毒类型会如此常见呢？</p>
+<h1 id="理论解释"><a href="#理论解释" class="headerlink" title="理论解释"></a>理论解释</h1><p>本文对这种病毒进化提出的解释是，这种类型是通过“诈骗”（cheating）进化而来的。如下图的例子，最开始的祖先型只有完整的基因组，直到其中一种骗子基因组（cheat）出现，这种不完整的骗子基因组和完整的“老实人”基因组（cooperator）在同一宿主中进行共感染时可以搭上完整基因组的便车，从而对自身的复制传递是有利的。之后又出现了第二种骗子基因组，这两种骗子基因组各自与完整基因组共感染时都是有利的，而在有完整基因组在场时，这两种骗子基因组就可以互补。因此，理论上说在共感染足够频繁的时候，这样的骗子基因组足以通过竞争让完整的基因组彻底绝迹（extinct），因此导致了只有multipartite病毒颗粒的现有种群。这样的机制即使在最终的multipartite种群繁殖力（productivity）低于祖先类群的时候也一样会出现。</p>
+<p><a href="https://imgse.com/i/p9Bm3VO"><img src="https://s1.ax1x.com/2023/05/09/p9Bm3VO.png" alt="p9Bm3VO.png"></a></p>
+<h1 id="诈骗生存策略的优劣分析"><a href="#诈骗生存策略的优劣分析" class="headerlink" title="诈骗生存策略的优劣分析"></a>诈骗生存策略的优劣分析</h1><p><a href="https://imgse.com/i/p9BmYPH"><img src="https://s1.ax1x.com/2023/05/09/p9BmYPH.png" alt="p9BmYPH.png"></a></p>
+<p>参数解释：</p>
+<p>β：共感染概率，即同一个宿主细胞被两个病毒颗粒同时感染的概率</p>
+<p>p：完整基因组C的相对频率（relative frequency）</p>
+<p>q：骗子基因组D1的相对频率</p>
+<p>z：骗子基因组D2的相对频率</p>
+<p>以上p+q+z=1</p>
+]]></content>
+      <categories>
+        <category>读文章</category>
+      </categories>
+      <tags>
+        <tag>进化生物学</tag>
+        <tag>读文章笔记</tag>
+      </tags>
+  </entry>
 </search>
