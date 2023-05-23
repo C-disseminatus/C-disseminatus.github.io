@@ -619,14 +619,14 @@
     <title>等位基因特异性表达 Allele-specific expression (ASE)</title>
     <url>/posts/22933/</url>
     <content><![CDATA[<p><a href="https://doi.org/10.1146/annurev-biodatasci-021621-122219">https://doi.org/10.1146/annurev-biodatasci-021621-122219</a></p>
-<h1 id="主要名词解释"><a href="#主要名词解释" class="headerlink" title="主要名词解释"></a>主要名词解释</h1><p><strong>Allelic imbalance:</strong> difference in chromatin state or mRNA or protein levels between the alleles at a locus</p>
-<p><strong>等位基因失衡：</strong> 染色质状态或mRNA与蛋白质水平在同一基因座不同等位基因之间的差异</p>
-<p><strong>Allelic expression imbalance:</strong> allelic imbalance that results in differences in mRNA levels, from complete imbalance with exclusive expression of one allele to subtle differences in expression between alleles</p>
-<p><strong>等位基因表达失衡：</strong> 以上情况的等位基因失衡导致的mRNA水平差异，包括完全失衡（aka只表达其中一个等位基因）和两种等位基因表达产物之间微弱的表达差异</p>
-<p><strong>Allele-specific imbalance:</strong> difference in chromatin state or mRNA or protein levels between the alleles <em><ins>at a heterozygous locus</ins></em> that is due to the genetic differences between the alleles</p>
-<p><strong>等位基因特异性失衡：</strong> 由遗传差异导致的某一 <em><ins>杂合</ins></em> 基因座上的等位基因失衡</p>
-<p><strong>Allele-specific expression (ASE) :</strong> allelic expression imbalance that is genetic in origin, i.e., a difference in expression levels between alleles <em><ins>due to differences between the allele sequences</ins></em></p>
-<p><strong>等位基因特异性表达：</strong> 由等位 <em><ins>基因序列本身的差异</ins></em> 导致的差异性表达</p>
+<h1 id="主要名词解释"><a href="#主要名词解释" class="headerlink" title="主要名词解释"></a>主要名词解释</h1><h2 id="等位基因失衡-（Allelic-imbalance）"><a href="#等位基因失衡-（Allelic-imbalance）" class="headerlink" title="等位基因失衡 （Allelic imbalance）"></a>等位基因失衡 （Allelic imbalance）</h2><p>Difference in chromatin state or mRNA or protein levels between the alleles at a locus</p>
+<p>染色质状态或mRNA与蛋白质水平在同一基因座不同等位基因之间的差异</p>
+<h2 id="等位基因表达失衡（Allelic-expression-imbalance）"><a href="#等位基因表达失衡（Allelic-expression-imbalance）" class="headerlink" title="等位基因表达失衡（Allelic expression imbalance）"></a>等位基因表达失衡（Allelic expression imbalance）</h2><p>Allelic imbalance that results in differences in mRNA levels, from complete imbalance with exclusive expression of one allele to subtle differences in expression between alleles</p>
+<p>以上情况的等位基因失衡导致的mRNA水平差异，包括完全失衡（aka只表达其中一个等位基因）和两种等位基因表达产物之间微弱的表达差异</p>
+<h2 id="等位基因特异性失衡（Allele-specific-imbalance）"><a href="#等位基因特异性失衡（Allele-specific-imbalance）" class="headerlink" title="等位基因特异性失衡（Allele-specific imbalance）"></a>等位基因特异性失衡（Allele-specific imbalance）</h2><p>Difference in chromatin state or mRNA or protein levels between the alleles <em><ins>at a heterozygous locus</ins></em> that is due to the genetic differences between the alleles</p>
+<p>由遗传差异导致的某一 <em><ins>杂合</ins></em> 基因座上的等位基因失衡</p>
+<h2 id="等位基因特异性表达（Allele-specific-expression，即ASE）"><a href="#等位基因特异性表达（Allele-specific-expression，即ASE）" class="headerlink" title="等位基因特异性表达（Allele-specific expression，即ASE）"></a>等位基因特异性表达（Allele-specific expression，即ASE）</h2><p>Allelic expression imbalance that is genetic in origin, i.e., a difference in expression levels between alleles <em><ins>due to differences between the allele sequences</ins></em></p>
+<p>由等位 <em><ins>基因序列本身的差异</ins></em> 导致的差异性表达</p>
 <p><strong>另一种解释：</strong> ASE refers to <strong>unequal expression between paternal and maternal alleles of a gene in a diploid individual, driven by cis-regulatory variants located near the gene</strong>. (<a href="https://doi.org/10.1371/journal.pgen.1008786">https://doi.org/10.1371/journal.pgen.1008786</a>)</p>
 <p><img src="https://www.annualreviews.org/na101/home/literatum/publisher/ar/journals/content/biodatasci/2021/biodatasci.2021.4.issue-1/annurev-biodatasci-021621-122219/20210704/images/large/bd40101.f1.jpeg" alt="bd40101.f1.jpeg"></p>
 <h1 id="通过杂交两个不同品系进行转录组测序来研究ASE的原因（个人理解）"><a href="#通过杂交两个不同品系进行转录组测序来研究ASE的原因（个人理解）" class="headerlink" title="通过杂交两个不同品系进行转录组测序来研究ASE的原因（个人理解）"></a>通过杂交两个不同品系进行转录组测序来研究ASE的原因（个人理解）</h1><p>假定父系和母系具有不同的性状，且两个都是经由高度近交导致的纯合品系（比如AA和aa），F1后代就会是杂合Aa，这样一旦有ASE的存在，在F1后代的转录组数据中就能检测出来，然后进一步推断那些存在ASE的位点可能就是和特定性状相关的基因。</p>
