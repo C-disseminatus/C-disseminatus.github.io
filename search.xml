@@ -639,4 +639,28 @@
         <tag>读文章笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Gamma-SMC相关</title>
+    <url>/posts/42953/</url>
+    <content><![CDATA[<p>doi: <a href="https://doi.org/10.1101/2023.01.06.522935">https://doi.org/10.1101/2023.01.06.522935</a></p>
+<p>（文章还没正式发表，只有预印本）</p>
+<h3 id="关于隐马尔可夫模型和溯祖分析的潜在问题"><a href="#关于隐马尔可夫模型和溯祖分析的潜在问题" class="headerlink" title="关于隐马尔可夫模型和溯祖分析的潜在问题"></a>关于隐马尔可夫模型和溯祖分析的潜在问题</h3><p>However, standard HMMs require a discrete hidden state space, while coalescence time is naturally continuous. Therefore, current SMC-based methods approximate the full model by discretizing time into a number of intervals (e.g., <em>T</em> = 20, 32 or 64) and so have at least <em>O</em>(<em>T</em>) computational complexity per step.</p>
+<p>标准的HMM模型需要一个【离散】分布的空间模型，但是溯祖过程中的分化时间是天然存在的【连续】的。因此现存的基于SMC的方法会把溯祖时间按照特定间隔进行取样，使之变成离散分布的变量。</p>
+<h3 id="输入及输出文件"><a href="#输入及输出文件" class="headerlink" title="输入及输出文件"></a>输入及输出文件</h3><p>输入文件为vcf，输出文件为每对haplotype、每个site的后验gamma分布概率。</p>
+<p>Gamma-SMC works on a VCF file. In addition, it optionally accepts a list of BED files, one per sample in the VCF; each BED file describes a mask of genomic intervals outside which alleles are considered missing. The user also describes at which sites to infer the TMRCA posterior - either at heterozygous sites, across a grid of evenly-spaced positions, or both. The input is then segmented as described in the main text.</p>
+<p>Within each segment, we need to calculate how many basepairs are homozygous, and how many are missing. For each pair of samples and for each segment, we calculate the total length of the intersection of corresponding two masks and the segment. Then, we treat the segment as if it is made of a stretch of missing observations followed by a stretch of homozygous observations. The user must also provide the scaled mutation rate <em>θ</em> and scaled recombination rate <em>r</em>.</p>
+<p>We output the final posterior gamma approximation, for each pair of haplotypes, at each output position.</p>
+<h3 id="探测近期正选择的用途"><a href="#探测近期正选择的用途" class="headerlink" title="探测近期正选择的用途"></a>探测近期正选择的用途</h3><p>原理大概是，近期受到的正选择越强，即由之引发的selective sweep越强，导致相应位置上的haplotype彼此分化时间越短，溯祖后得到的<em>coalescence time</em>，也就是<em>time to the most recent common ancestor</em> (TMRCA) 越小，因此在下面这种散点图里呈现明显的凹陷。</p>
+<p><img src="https://www.biorxiv.org/content/biorxiv/early/2023/01/06/2023.01.06.522935/F4.large.jpg" alt="F4.large.jpg"></p>
+<p><strong>Fig. 4: Scanning for recent positive selection.</strong></p>
+<p><strong>(a)</strong> We searched for 100kbp regions enriched for pairwise coalescence times more recent than 4,500 years ago. <strong>(b)</strong> A focus on the locus of the LCT gene (green rectangle), showing an enrichment of coalescence time in recent years (dashed line, 4,500 years ago, assuming generation time of 30 years and effective population size of 15,000).</p>
+]]></content>
+      <categories>
+        <category>生信分析</category>
+      </categories>
+      <tags>
+        <tag>生信</tag>
+        <tag>基因组</tag>
+      </tags>
+  </entry>
 </search>

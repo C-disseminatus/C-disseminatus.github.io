@@ -21,16 +21,24 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mirage">
-<meta property="og:url" content="https://exhalationzone.github.io/archives/index.html">
+<meta name="description" content="一个利用隐马尔可夫模型估算溯祖时间、侦测近期正选择位点的新方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gamma-SMC相关">
+<meta property="og:url" content="https://exhalationzone.github.io/posts/42953/index.html">
 <meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="一个利用隐马尔可夫模型估算溯祖时间、侦测近期正选择位点的新方法。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.biorxiv.org/content/biorxiv/early/2023/01/06/2023.01.06.522935/F4.large.jpg">
+<meta property="article:published_time" content="2023-09-02T13:18:49.953Z">
+<meta property="article:modified_time" content="2023-09-02T13:28:54.676Z">
 <meta property="article:author" content="Fc">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="基因组">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.biorxiv.org/content/biorxiv/early/2023/01/06/2023.01.06.522935/F4.large.jpg">
 
 
-<link rel="canonical" href="https://exhalationzone.github.io/archives/">
+<link rel="canonical" href="https://exhalationzone.github.io/posts/42953/">
 
 
 <script class="page-configurations">
@@ -38,11 +46,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>归档 | Mirage</title>
+<title>Gamma-SMC相关 | Mirage</title>
   
 
 
@@ -168,7 +176,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -181,6 +189,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E9%9A%90%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E6%A8%A1%E5%9E%8B%E5%92%8C%E6%BA%AF%E7%A5%96%E5%88%86%E6%9E%90%E7%9A%84%E6%BD%9C%E5%9C%A8%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">关于隐马尔可夫模型和溯祖分析的潜在问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%8F%8A%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">输入及输出文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A2%E6%B5%8B%E8%BF%91%E6%9C%9F%E6%AD%A3%E9%80%89%E6%8B%A9%E7%9A%84%E7%94%A8%E9%80%94"><span class="nav-number">3.</span> <span class="nav-text">探测近期正选择的用途</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -237,235 +246,109 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 16 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://exhalationzone.github.io/posts/42953/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Fc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Gamma-SMC相关
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2023</span>
+
+      <time title="创建时间：2023-09-02 21:18:49 / 修改时间：21:28:54" itemprop="dateCreated datePublished" datetime="2023-09-02T21:18:49+08:00">2023-09-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">生信分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">一个利用隐马尔可夫模型估算溯祖时间、侦测近期正选择位点的新方法。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>doi: <a target="_blank" rel="noopener" href="https://doi.org/10.1101/2023.01.06.522935">https://doi.org/10.1101/2023.01.06.522935</a></p>
+<p>（文章还没正式发表，只有预印本）</p>
+<h3 id="关于隐马尔可夫模型和溯祖分析的潜在问题"><a href="#关于隐马尔可夫模型和溯祖分析的潜在问题" class="headerlink" title="关于隐马尔可夫模型和溯祖分析的潜在问题"></a>关于隐马尔可夫模型和溯祖分析的潜在问题</h3><p>However, standard HMMs require a discrete hidden state space, while coalescence time is naturally continuous. Therefore, current SMC-based methods approximate the full model by discretizing time into a number of intervals (e.g., <em>T</em> = 20, 32 or 64) and so have at least <em>O</em>(<em>T</em>) computational complexity per step.</p>
+<p>标准的HMM模型需要一个【离散】分布的空间模型，但是溯祖过程中的分化时间是天然存在的【连续】的。因此现存的基于SMC的方法会把溯祖时间按照特定间隔进行取样，使之变成离散分布的变量。</p>
+<h3 id="输入及输出文件"><a href="#输入及输出文件" class="headerlink" title="输入及输出文件"></a>输入及输出文件</h3><p>输入文件为vcf，输出文件为每对haplotype、每个site的后验gamma分布概率。</p>
+<p>Gamma-SMC works on a VCF file. In addition, it optionally accepts a list of BED files, one per sample in the VCF; each BED file describes a mask of genomic intervals outside which alleles are considered missing. The user also describes at which sites to infer the TMRCA posterior - either at heterozygous sites, across a grid of evenly-spaced positions, or both. The input is then segmented as described in the main text.</p>
+<p>Within each segment, we need to calculate how many basepairs are homozygous, and how many are missing. For each pair of samples and for each segment, we calculate the total length of the intersection of corresponding two masks and the segment. Then, we treat the segment as if it is made of a stretch of missing observations followed by a stretch of homozygous observations. The user must also provide the scaled mutation rate <em>θ</em> and scaled recombination rate <em>r</em>.</p>
+<p>We output the final posterior gamma approximation, for each pair of haplotypes, at each output position.</p>
+<h3 id="探测近期正选择的用途"><a href="#探测近期正选择的用途" class="headerlink" title="探测近期正选择的用途"></a>探测近期正选择的用途</h3><p>原理大概是，近期受到的正选择越强，即由之引发的selective sweep越强，导致相应位置上的haplotype彼此分化时间越短，溯祖后得到的<em>coalescence time</em>，也就是<em>time to the most recent common ancestor</em> (TMRCA) 越小，因此在下面这种散点图里呈现明显的凹陷。</p>
+<p><img src="https://www.biorxiv.org/content/biorxiv/early/2023/01/06/2023.01.06.522935/F4.large.jpg" alt="F4.large.jpg"></p>
+<p><strong>Fig. 4: Scanning for recent positive selection.</strong></p>
+<p><strong>(a)</strong> We searched for 100kbp regions enriched for pairwise coalescence times more recent than 4,500 years ago. <strong>(b)</strong> A focus on the locus of the LCT gene (green rectangle), showing an enrichment of coalescence time in recent years (dashed line, 4,500 years ago, assuming generation time of 30 years and effective population size of 15,000).</p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-09-02T21:18:49+08:00"
-              content="2023-09-02">
-          09-02
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/42953/" itemprop="url">
-            <span itemprop="name">Gamma-SMC相关</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E4%BF%A1/" rel="tag"># 生信</a>
+              <a href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84/" rel="tag"># 基因组</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/22933/" rel="prev" title="等位基因特异性表达 Allele-specific expression (ASE)">
+                  <i class="fa fa-chevron-left"></i> 等位基因特异性表达 Allele-specific expression (ASE)
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-05-23T09:00:00+08:00"
-              content="2023-05-23">
-          05-23
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/22933/" itemprop="url">
-            <span itemprop="name">等位基因特异性表达 Allele-specific expression (ASE)</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2023-05-09T09:00:00+08:00"
-              content="2023-05-09">
-          05-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/39585/" itemprop="url">
-            <span itemprop="name">复合病毒（multipartite virus）通过诈骗进化</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
-    </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-07-24T12:12:36+08:00"
-              content="2022-07-24">
-          07-24
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/1773/" itemprop="url">
-            <span itemprop="name">为什么我们不赞成那些执迷于鉴定出所有barrier loci的做法？ - 2017</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-07-22T16:54:29+08:00"
-              content="2022-07-22">
-          07-22
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/6278/" itemprop="url">
-            <span itemprop="name">由自然选择驱动的物种形成及其相关的三个主要问题 - 2022</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-07-14T13:45:04+08:00"
-              content="2022-07-14">
-          07-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/52914/" itemprop="url">
-            <span itemprop="name">用easySFS和fastsimcoal2模拟种群历史事件</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-19T20:10:36+08:00"
-              content="2022-04-19">
-          04-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/33302/" itemprop="url">
-            <span itemprop="name">用ANGSD和Stairway Plot2构建种群历史动态</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-18T20:50:29+08:00"
-              content="2022-04-18">
-          04-18
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/24658/" itemprop="url">
-            <span itemprop="name">用selscan进行全基因组正选择扫描</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-15T17:15:52+08:00"
-              content="2022-04-15">
-          04-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/25596/" itemprop="url">
-            <span itemprop="name">Mallet驳Mayr对达尔文的误解 - 2008</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-03-19T16:50:00+08:00"
-              content="2022-03-19">
-          03-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/59035/" itemprop="url">
-            <span itemprop="name">用ReLERNN计算全基因组重组率景观</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
+</div>
 
 
-    </div>
-  </div>
-  
-  
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="extend next" rel="next" href="/archives/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
+
+
+
 
 
 <script>
