@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="当基因组中包含的基因过多时，对多个生物学重复中筛选出的candidate genes进行随机分布检验，并用相应的p值判断其显著性（算p值功能待完善）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Python做candidate genes的随机性检验+计算p值">
+<meta property="og:url" content="https://exhalationzone.github.io/posts/8496/index.html">
+<meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="当基因组中包含的基因过多时，对多个生物学重复中筛选出的candidate genes进行随机分布检验，并用相应的p值判断其显著性（算p值功能待完善）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-12-12T16:40:56.988Z">
+<meta property="article:modified_time" content="2023-12-12T17:14:11.111Z">
+<meta property="article:author" content="Fc">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="基因组">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://exhalationzone.github.io/posts/8496/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>用Python做candidate genes的随机性检验+计算p值 | Mirage</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Mirage</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There's a million things I haven't done, but just you wait.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#p%E5%80%BC%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">p值的定义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">代码思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6"><span class="nav-number">2.1.</span> <span class="nav-text">输入文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E4%B8%AA%E5%9F%BA%E5%9B%A0%E7%BB%84%E4%B8%8A%E6%89%80%E6%9C%89%E5%9F%BA%E5%9B%A0%E7%9A%84%E5%90%8D%E7%A7%B0%E5%88%97%E8%A1%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">整个基因组上所有基因的名称列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B3%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%A3%80%E9%AA%8C%E7%9A%84%E7%9B%AE%E6%A0%87%E5%9F%BA%E5%9B%A0%E5%88%97%E8%A1%A8%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E5%9C%A8%E5%AE%9E%E9%99%85replicate%E4%B8%AD%E9%87%8D%E5%A4%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0%EF%BC%88csv%E6%88%96%E7%94%A8tab%E5%88%86%E9%9A%94%E7%9A%84%E6%96%87%E6%9C%AC%E6%96%87%E6%A1%A3%EF%BC%89"><span class="nav-number">2.1.2.</span> <span class="nav-text">想要进行检验的目标基因列表以及它们在实际replicate中重复出现的次数（csv或用tab分隔的文本文档）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.</span> <span class="nav-text">输出文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%9A%84%E6%95%B4%E4%BD%93%E5%B8%83%E5%B1%80"><span class="nav-number">2.3.</span> <span class="nav-text">代码的整体布局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">实际代码</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fc"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Fc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://exhalationzone.github.io/posts/8496/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Fc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用Python做candidate genes的随机性检验+计算p值
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-12-13 00:40:56 / 修改时间：01:14:11" itemprop="dateCreated datePublished" datetime="2023-12-13T00:40:56+08:00">2023-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">生信分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">当基因组中包含的基因过多时，对多个生物学重复中筛选出的candidate genes进行随机分布检验，并用相应的p值判断其显著性（算p值功能待完善）。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>最近在做的一个小工程，从很多人得到了这个建议，即当一个基因组中包含的基因过多的时候，如果通过几个生物学重复来从overlapped的基因列表中筛选目标基因，会面临一个问题，就是无法确保这样选出的一个基因到底是真的“目标基因”，还是在那一堆基因里恰巧被选中的？</p>
+<p>为了排除这种随机性，需要通过计算机模拟来生成一个基因overlap次数的分布，然后通过p值来判断这个基因是否通过了这个检验。</p>
+<p>参考的文献：</p>
+<p><a target="_blank" rel="noopener" href="https://academic.oup.com/icb/article/62/2/357/6602358">Repeated Genetic Targets of Natural Selection Underlying Adaptation of Fishes to Changing Salinity | Integrative and Comparative Biology | Oxford Academic (oup.com)</a></p>
+<h1 id="p值的定义"><a href="#p值的定义" class="headerlink" title="p值的定义"></a>p值的定义</h1><p>The P-value is the probability of seeing a sample proportion at least as extreme as the one observed from the data if the null hypothesis is true.</p>
+<p><a target="_blank" rel="noopener" href="https://courses.lumenlearning.com/wm-concepts-statistics/chapter/hypothesis-test-for-a-population-proportion-2-of-3">https://courses.lumenlearning.com/wm-concepts-statistics/chapter/hypothesis-test-for-a-population-proportion-2-of-3</a></p>
+<h1 id="代码思路"><a href="#代码思路" class="headerlink" title="代码思路"></a>代码思路</h1><h2 id="输入文件"><a href="#输入文件" class="headerlink" title="输入文件"></a>输入文件</h2><p>这里我可以手动准备的输入文件是如下的几个：</p>
+<h3 id="整个基因组上所有基因的名称列表"><a href="#整个基因组上所有基因的名称列表" class="headerlink" title="整个基因组上所有基因的名称列表"></a>整个基因组上所有基因的名称列表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chr1	1	100	gene_ID1</span><br><span class="line">chr1	201	300	gene_ID2</span><br><span class="line">chr1	301	500	gene_ID3</span><br></pre></td></tr></table></figure>
+
+<h3 id="想要进行检验的目标基因列表以及它们在实际replicate中重复出现的次数（csv或用tab分隔的文本文档）"><a href="#想要进行检验的目标基因列表以及它们在实际replicate中重复出现的次数（csv或用tab分隔的文本文档）" class="headerlink" title="想要进行检验的目标基因列表以及它们在实际replicate中重复出现的次数（csv或用tab分隔的文本文档）"></a>想要进行检验的目标基因列表以及它们在实际replicate中重复出现的次数（csv或用tab分隔的文本文档）</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gene_ID1,2</span><br><span class="line">gene_ID2,2</span><br><span class="line">gene_ID3,3</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="输出文件"><a href="#输出文件" class="headerlink" title="输出文件"></a>输出文件</h2><p>我想要得到的输出文件是以每个目标基因为行名，以重复出现次数（overlapping time）为列名的表格，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">gene,count0,count1,count2,count3</span><br><span class="line">gene_ID1,8300,1674,24,2</span><br><span class="line">gene_ID2,8321,1667,11,1</span><br><span class="line">gene_ID3,8254,1724,22,0</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="代码的整体布局"><a href="#代码的整体布局" class="headerlink" title="代码的整体布局"></a>代码的整体布局</h2><p>读入输入文件→创建空输出表格→模拟随机采样三次（实际生物学重复有几次这里就重现几次）→循环上一步一百万次，每次循环中一个目标基因被随机采样到几个重复，就在输出表格的相应位置累计加1→按多种情况计算p值→写入输出文件</p>
+<h1 id="实际代码"><a href="#实际代码" class="headerlink" title="实际代码"></a>实际代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> pandas</span><br><span class="line"><span class="keyword">import</span> numpy</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Input data reading</span></span><br><span class="line">totalgene = pandas.read_table(<span class="string">r&#x27;gene_all.bed&#x27;</span>, usecols=[<span class="number">3</span>], header=<span class="literal">None</span>)  <span class="comment"># Read in the 4th column of ncbi gene list (gene names)</span></span><br><span class="line">querygene = pandas.read_csv(<span class="string">r&#x27;querygene_with_count.csv&#x27;</span>, usecols=[<span class="number">0</span>], header=<span class="literal">None</span>)  <span class="comment"># Read in the candidate gene names (noted as &quot;query genes&quot; here)</span></span><br><span class="line">querygenecount = pandas.read_csv(<span class="string">r&#x27;querygene_with_count.csv&#x27;</span>, usecols=[<span class="number">1</span>], header=<span class="literal">None</span>)  <span class="comment"># Read in the numbers that one candidate gene appears in all 3 replicates (noted as &quot;query genes count&quot; here)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Format converting</span></span><br><span class="line">totalgene_array = numpy.array(totalgene.stack())  <span class="comment"># Convert the gene list into array using pandas</span></span><br><span class="line">totalgene_list = totalgene_array.tolist()  <span class="comment"># Convert to list format</span></span><br><span class="line">querygene_array = numpy.array(querygene.stack())</span><br><span class="line">querygene_list = querygene_array.tolist()</span><br><span class="line">querygenecount_array = numpy.array(querygenecount.stack())</span><br><span class="line">querygenecount_list = querygenecount_array.tolist()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Creating empty output dataframe</span></span><br><span class="line">df = pandas.DataFrame()</span><br><span class="line">df.insert(loc=<span class="number">0</span>, column=<span class="string">&#x27;gene&#x27;</span>, value=querygene_list)</span><br><span class="line">df.insert(loc=<span class="number">1</span>, column=<span class="string">&#x27;querygenecount&#x27;</span>, value=querygenecount_list)</span><br><span class="line">df.insert(loc=<span class="number">2</span>, column=<span class="string">&#x27;count0&#x27;</span>, value=<span class="number">0</span>)</span><br><span class="line">df.insert(loc=<span class="number">3</span>, column=<span class="string">&#x27;count1&#x27;</span>, value=<span class="number">0</span>)</span><br><span class="line">df.insert(loc=<span class="number">4</span>, column=<span class="string">&#x27;count2&#x27;</span>, value=<span class="number">0</span>)</span><br><span class="line">df.insert(loc=<span class="number">5</span>, column=<span class="string">&#x27;count3&#x27;</span>, value=<span class="number">0</span>)</span><br><span class="line">df.insert(loc=<span class="number">6</span>, column=<span class="string">&#x27;pval&#x27;</span>, value=<span class="number">0</span>)</span><br><span class="line"><span class="built_in">print</span> (df)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Simulating random candidate genes selection for 1,000,000 times</span></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="number">1000000</span>:</span><br><span class="line">    R1 = random.sample(totalgene_list, <span class="number">100</span>)  <span class="comment"># Simulate R1 candidate genes selection</span></span><br><span class="line">    R2 = random.sample(totalgene_list, <span class="number">200</span>)  <span class="comment"># Simulate R2 candidate genes selection</span></span><br><span class="line">    R3 = random.sample(totalgene_list, <span class="number">300</span>)  <span class="comment"># Simulate R3 candidate genes selection</span></span><br><span class="line">    R1R2 = [a <span class="keyword">for</span> a <span class="keyword">in</span> R1 <span class="keyword">if</span> a <span class="keyword">in</span> R2]  <span class="comment"># Overlapping genes between R1 and R2</span></span><br><span class="line">    R1R3 = [b <span class="keyword">for</span> b <span class="keyword">in</span> R1 <span class="keyword">if</span> b <span class="keyword">in</span> R3]  <span class="comment"># Overlapping genes between R1 and R3</span></span><br><span class="line">    R2R3 = [c <span class="keyword">for</span> c <span class="keyword">in</span> R2 <span class="keyword">if</span> c <span class="keyword">in</span> R3]  <span class="comment"># Overlapping genes between R2 and R3</span></span><br><span class="line">    R1R2R3 = [d <span class="keyword">for</span> d <span class="keyword">in</span> R1R2 <span class="keyword">if</span> d <span class="keyword">in</span> R2R3]  <span class="comment"># Overlapping genes among R1, R2 and R3</span></span><br><span class="line">    setR1 = <span class="built_in">set</span>(R1)  <span class="comment"># Converting list format into set to do calculations</span></span><br><span class="line">    setR2 = <span class="built_in">set</span>(R2)</span><br><span class="line">    setR3 = <span class="built_in">set</span>(R3)</span><br><span class="line">    set_totalgene = <span class="built_in">set</span>(totalgene_list)</span><br><span class="line">    selected0 = <span class="built_in">list</span>(set_totalgene - setR1 - setR2 - setR3)</span><br><span class="line">    <span class="comment">#selected1 = [f for f in R1 or R2 or R3]</span></span><br><span class="line">    selected2 = [e <span class="keyword">for</span> e <span class="keyword">in</span> R1R2 <span class="keyword">or</span> R1R3 <span class="keyword">or</span> R2R3]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Calculating number of times that the query genes appear in randomly selected gene lists, and making changes to output file</span></span><br><span class="line">    df.count0 = numpy.where(df.gene.isin(selected0), df.count0+<span class="number">1</span>, df.count0)</span><br><span class="line">    <span class="comment">#df.count1 = numpy.where(df.gene.isin(selected1), df.count1+1, df.count1)</span></span><br><span class="line">    df.count2 = numpy.where(df.gene.isin(selected2), df.count2+<span class="number">1</span>, df.count2)</span><br><span class="line">    df.count3 = numpy.where(df.gene.isin(R1R2R3), df.count3+<span class="number">1</span>, df.count3)</span><br><span class="line">    </span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculating sppearance time for those genes that were only selected once in each simulation</span></span><br><span class="line">df.count1 = <span class="number">1000000</span> - df.count0 - df.count2 - df.count3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Calculating p-values for each gene based on their observed numbers of appearance in empirical data</span></span><br><span class="line"><span class="keyword">for</span> oricount <span class="keyword">in</span> df.querygenecount:</span><br><span class="line">    <span class="keyword">if</span> oricount == <span class="number">2</span>:</span><br><span class="line">        df.pval = ((df.count2/<span class="number">1000000</span>) + (df.count3/<span class="number">1000000</span>))</span><br><span class="line">    <span class="keyword">elif</span> oricount == <span class="number">3</span>:</span><br><span class="line">        df.pval = df.count3/<span class="number">1000000</span></span><br><span class="line">df = df.<span class="built_in">round</span>(&#123;<span class="string">&#x27;pval&#x27;</span>:<span class="number">5</span>&#125;)  <span class="comment"># Keeping certain number of decimal places</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Output result into either standard output or csv file</span></span><br><span class="line"><span class="comment">#print (df)</span></span><br><span class="line">df.to_csv(<span class="string">&#x27;randomisation_test_distribution_1000000_pval.csv&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>P.S. 这里算p值的步骤不太完善，两种不同情况无法区分开，所以输出后还要手动修改重新算一次。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E4%BF%A1/" rel="tag"># 生信</a>
+              <a href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84/" rel="tag"># 基因组</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/42953/" rel="prev" title="Gamma-SMC相关">
+                  <i class="fa fa-chevron-left"></i> Gamma-SMC相关
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fc</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>
