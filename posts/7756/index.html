@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"exhalationzone.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="一篇做simulation的预印本，非常有意思的结论，也可以顺带复习一下几种不同选择清扫的概念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="等位基因转换（Allelic gene conversion）能产生近似软性选择清扫（soft sweep）的效果">
+<meta property="og:url" content="https://exhalationzone.github.io/posts/7756/index.html">
+<meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="一篇做simulation的预印本，非常有意思的结论，也可以顺带复习一下几种不同选择清扫的概念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F1.large.jpg">
+<meta property="og:image" content="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F2.large.jpg">
+<meta property="article:published_time" content="2023-12-13T10:26:10.175Z">
+<meta property="article:modified_time" content="2023-12-13T11:21:54.210Z">
+<meta property="article:author" content="Fc">
+<meta property="article:tag" content="进化生物学">
+<meta property="article:tag" content="读文章笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F1.large.jpg">
+
+
+<link rel="canonical" href="https://exhalationzone.github.io/posts/7756/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>等位基因转换（Allelic gene conversion）能产生近似软性选择清扫（soft sweep）的效果 | Mirage</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<style>.darkmode--activated{--body-bg-color:#282828;--content-bg-color:#333;--card-bg-color:#555;--text-color:#ccc;--blockquote-color:#bbb;--link-color:#ccc;--link-hover-color:#eee;--brand-color:#ddd;--brand-hover-color:#ddd;--table-row-odd-bg-color:#282828;--table-row-hover-bg-color:#363636;--menu-item-bg-color:#555;--btn-default-bg:#222;--btn-default-color:#ccc;--btn-default-border-color:#555;--btn-default-hover-bg:#666;--btn-default-hover-color:#ccc;--btn-default-hover-border-color:#666;--highlight-background:#282b2e;--highlight-foreground:#a9b7c6;--highlight-gutter-background:#34393d;--highlight-gutter-foreground:#9ca9b6}.darkmode--activated img{opacity:.75}.darkmode--activated img:hover{opacity:.9}.darkmode--activated code{color:#69dbdc;background:0 0}button.darkmode-toggle{z-index:9999}.darkmode-ignore,img{display:flex!important}.beian img{display:inline-block!important}</style></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Mirage</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">There's a million things I haven't done, but just you wait.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%9B%A0%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%AE%9A%E4%B9%89%EF%BC%88%E7%BB%B4%E5%9F%BA%E7%99%BE%E7%A7%91%EF%BC%89"><span class="nav-number">1.0.1.</span> <span class="nav-text">基因转换的定义（维基百科）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">这篇文章解决的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A0%94%E7%A9%B6%E6%96%B9%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">研究方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%BE%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">图解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%A8%A1%E6%8B%9F%E7%9A%84%E4%BA%BA%E7%B1%BB%E7%A7%8D%E7%BE%A4%E4%B8%AD%EF%BC%8C%E5%9F%BA%E5%9B%A0%E8%BD%AC%E6%8D%A2%E5%8F%AA%E2%80%9C%E8%BD%AF%E5%8C%96%E2%80%9D%EF%BC%88soften%EF%BC%89%E4%BA%86%E5%B0%91%E9%83%A8%E5%88%86%E9%80%89%E6%8B%A9%E6%B8%85%E6%89%AB"><span class="nav-number">5.1.</span> <span class="nav-text">在模拟的人类种群中，基因转换只“软化”（soften）了少部分选择清扫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%A8%A1%E6%8B%9F%E7%9A%84%E6%9E%9C%E8%9D%87%E7%A7%8D%E7%BE%A4%E4%B8%AD%EF%BC%8C%E5%9F%BA%E5%9B%A0%E8%BD%AC%E6%8D%A2%E2%80%9C%E8%BD%AF%E5%8C%96%E2%80%9D%EF%BC%88soften%EF%BC%89%E4%BA%86%E5%A4%A7%E9%83%A8%E5%88%86%E7%9A%84%E9%80%89%E6%8B%A9%E6%B8%85%E6%89%AB"><span class="nav-number">5.2.</span> <span class="nav-text">在模拟的果蝇种群中，基因转换“软化”（soften）了大部分的选择清扫</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%A8%A1%E6%8B%9F%E6%8B%9F%E5%8D%97%E8%8A%A5%E7%A7%8D%E7%BE%A4%E4%B8%AD%EF%BC%8C%E5%9F%BA%E5%9B%A0%E8%BD%AC%E6%8D%A2%E5%AF%B9%E9%80%89%E6%8B%A9%E6%B8%85%E6%89%AB%E5%BD%B1%E5%93%8D%E5%BE%88%E5%B0%8F"><span class="nav-number">5.3.</span> <span class="nav-text">在模拟拟南芥种群中，基因转换对选择清扫影响很小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E9%87%8D%E7%BB%84%E5%8D%95%E5%80%8D%E5%9E%8B%EF%BC%88recombinant-haplotype%EF%BC%89%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">5.4.</span> <span class="nav-text">对重组单倍型（recombinant haplotype）的影响</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Fc"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Fc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://exhalationzone.github.io/posts/7756/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Fc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          等位基因转换（Allelic gene conversion）能产生近似软性选择清扫（soft sweep）的效果
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-12-13 18:26:10 / 修改时间：19:21:54" itemprop="dateCreated datePublished" datetime="2023-12-13T18:26:10+08:00">2023-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AF%BB%E6%96%87%E7%AB%A0/" itemprop="url" rel="index"><span itemprop="name">读文章</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">一篇做simulation的预印本，非常有意思的结论，也可以顺带复习一下几种不同选择清扫的概念。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>原文：<a target="_blank" rel="noopener" href="https://doi.org/10.1101/2023.12.05.570141">https://doi.org/10.1101/2023.12.05.570141</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>正选择（positive selection）会导致选择清扫（selective sweep），即某个受到自然选择青睐的等位基因在被选择到被固定的过程中导致其他等位基因频率降低，如同一场清除基因多样性的“扫荡”。</p>
+<p>选择清扫一直被分为两种，一种是硬性清扫（hard sweep），即单个优势等位基因直接在选择的作用下达到固定，另一种是软性清扫（soft sweep），即多个不同的优势等位基因一起被保留下来。软性清扫可以通过两种方式达成，一种是同一个优势等位基因的重复突变（recurrent mutation），另一种是在选择发生之前就已经存在的、包含了多种优势等位基因的既有基因差异（standing genetic variation）。一般来说，如果一个种群可以迅速适应新环境，软性清扫的存在就会很普遍，要么是因为更高的突变率，要么是因为多种多样的优势等位基因早就已经存在了（而且这样的种群往往规模非常大，或者历史上的Ne非常大）。</p>
+<p>然而，有一种情况下，我们会见到和软性清扫非常相似的现象，那就是存在等位基因转换（allelic gene conversion）的时候。</p>
+<h3 id="基因转换的定义（维基百科）"><a href="#基因转换的定义（维基百科）" class="headerlink" title="基因转换的定义（维基百科）"></a>基因转换的定义（维基百科）</h3><p><strong>基因转换</strong>（Gene conversion）是生物<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%BA%E5%9B%A0%E7%B5%84">基因组</a>中一段DNA序列将另一段与其<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%90%8C%E6%BA%90">同源</a>的DNA序列取代的机制，可在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E6%B8%9B%E6%95%B8%E5%88%86%E8%A3%82">减数分裂</a>时发生在<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%95%B0%E5%9E%8B%E5%90%88%E5%AD%90">异型合子</a>之<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%90%8C%E6%BA%90%E6%9F%93%E8%89%B2%E9%AB%94">同源染色体</a>上对应的基因之间（allelic gene conversion），造成配子细胞在该<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%BA%E5%9B%A0%E5%BA%A7">基因座</a>的<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E9%9D%9E%E5%AD%9F%E5%BE%B7%E7%88%BE%E5%BC%8F%E9%81%BA%E5%82%B3&action=edit&redlink=1">非孟德尔式遗传</a>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E5%9F%BA%E5%9B%A0%E8%BD%89%E6%8F%9B#cite_note-Galtier01-1">1]</a>，也可在其他状况下发生在基因组中同源（同<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%BA%E5%9B%A0%E5%AE%B6%E6%97%8F">基因家族</a>）的两基因（如<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%9F%BA%E5%9B%A0%E7%B0%87">基因簇</a>或<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E4%B8%B2%E9%80%A3%E9%87%8D%E8%A4%87%E5%9F%BA%E5%9B%A0&action=edit&redlink=1">串连重复基因</a>中的数个基因）之间（ectopic gene conversion），使各基因序列趋于一致，造成<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/w/index.php?title=%E5%8D%94%E5%90%8C%E6%BC%94%E5%8C%96&action=edit&redlink=1">协同演化</a>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E5%9F%BA%E5%9B%A0%E8%BD%89%E6%8F%9B#cite_note-pmid7564393-2">2]</a>[<a target="_blank" rel="noopener" href="https://zh.wikipedia.org/zh-cn/%E5%9F%BA%E5%9B%A0%E8%BD%89%E6%8F%9B#cite_note-Lodish-3">3]</a>。</p>
+<p>在这种基因转换存在的时候，作用于一个单起源（single-origin de novo）优势等位基因上的硬性清扫将产生几乎和软性清扫一样的效果，即好像有多个等位基因同时受到了选择，因为基因转换可以使被选择的等位基因“跳”到另一个新的遗传背景上（genetic background，比如非同源染色体上的同源区域），导致这两个区域间存在较高的连锁不平衡（LD），这与不存在基因转换时的标准hard sweep是相反的。</p>
+<p>这篇文章讲上述的“假”的soft sweep称为“pseudo-soft sweep”。</p>
+<h1 id="这篇文章解决的问题"><a href="#这篇文章解决的问题" class="headerlink" title="这篇文章解决的问题"></a>这篇文章解决的问题</h1><p>检验上述由基因转换导致的pseudo-soft sweep在真实demographic背景下是否普遍存在。</p>
+<h1 id="研究方式"><a href="#研究方式" class="headerlink" title="研究方式"></a>研究方式</h1><p>用slim软件对包括人类、果蝇和拟南芥等模式物种基因组进行simulation。</p>
+<h1 id="图解"><a href="#图解" class="headerlink" title="图解"></a>图解</h1><p><a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F1.large.jpg"><img src="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F1.large.jpg" alt="F1.large.jpg"></a></p>
+<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h1><h2 id="在模拟的人类种群中，基因转换只“软化”（soften）了少部分选择清扫"><a href="#在模拟的人类种群中，基因转换只“软化”（soften）了少部分选择清扫" class="headerlink" title="在模拟的人类种群中，基因转换只“软化”（soften）了少部分选择清扫"></a>在模拟的人类种群中，基因转换只“软化”（soften）了少部分选择清扫</h2><h2 id="在模拟的果蝇种群中，基因转换“软化”（soften）了大部分的选择清扫"><a href="#在模拟的果蝇种群中，基因转换“软化”（soften）了大部分的选择清扫" class="headerlink" title="在模拟的果蝇种群中，基因转换“软化”（soften）了大部分的选择清扫"></a>在模拟的果蝇种群中，基因转换“软化”（soften）了大部分的选择清扫</h2><p>我觉得这部分结论是最神奇的，因为在果蝇当中大部分看上去是soft sweep的选择清扫实际上都有可能是被基因转换影响了的hard sweep，也就是说在其他昆虫种群中也有可能存在大量这方面的误判，如果是这样的话，那在利用sweep scan来寻找具有local adaptation优势的基因位点时就可能出错，甚至严重影响这类研究的结论。</p>
+<p>日后会有针对这个现象的辅助软件吗？比如在进行sweep scan的同时侦测基因转换的频率？如何侦测？文章最后讨论确实提到了用machine learning来开发这类软件的可能性：</p>
+<p>Part of the reason for the controversy surrounding soft sweeps is that, because of their more subtle signature, detecting them with a low false positive rate is more difficult (<a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-76">Schrider and Kern, 2016</a>). Thus, it would be convenient for sweep-detection efforts if positive selection rarely resulted in soft sweeps. However, we do not appear to be this fortunate—regardless of the mode of selection, signatures essentially indistinguishable from soft sweeps should be the norm in species with large population sizes and per-base pair gene conversion rates comparable to those measured in several animal species. It is also worth noting that our conclusions may not be limited to models with a single target of selection, as polygenic selection can in many cases produce selective sweeps (<a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-81">Thornton, 2019</a>), which of course may also experience gene conversion. Thus, even if true soft sweeps never occur, although this appears unlikely as argued above, the presence of gene conversion necessitates methods capable of detecting the signatures of soft sweeps if we hope to be able to uncover loci responsible for recent adaptation. Continued advances on this front, such as machine learning methods that can detect soft sweeps with increasingly high accuracy (e.g. (<a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-76">Schrider and Kern, 2016</a>; <a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-45">Kern and Schrider, 2018</a>; <a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-62">Mughal and DeGiorgio, 2019</a>; <a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-53">Lauterbur <em>et al</em>., 2023b</a>; <a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/10.1101/2023.12.05.570141v1.full#ref-3">Arnab <em>et al</em>., 2023</a>), are therefore essential if we wish to fully understand the importance of positive selection in recent evolutionary history and its role in shaping patterns of diversity.</p>
+<h2 id="在模拟拟南芥种群中，基因转换对选择清扫影响很小"><a href="#在模拟拟南芥种群中，基因转换对选择清扫影响很小" class="headerlink" title="在模拟拟南芥种群中，基因转换对选择清扫影响很小"></a>在模拟拟南芥种群中，基因转换对选择清扫影响很小</h2><h2 id="对重组单倍型（recombinant-haplotype）的影响"><a href="#对重组单倍型（recombinant-haplotype）的影响" class="headerlink" title="对重组单倍型（recombinant haplotype）的影响"></a>对重组单倍型（recombinant haplotype）的影响</h2><p>As described above, our simulations show that allelic gene conversion has the potential to produce sweeps where the beneficial mutation is found on multiple distinct haplotypes. <strong>This suggests that pseudo-soft sweeps caused by gene conversion, much like true soft sweeps, may provide the means for a larger fraction of diversity present prior to selection to escape the sweep than expected under a hard sweep.</strong></p>
+<p>其中一部分结果示例：</p>
+<p><a target="_blank" rel="noopener" href="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F2.large.jpg"><img src="https://www.biorxiv.org/content/biorxiv/early/2023/12/05/2023.12.05.570141/F2.large.jpg" alt="F2.large.jpg"></a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%BF%9B%E5%8C%96%E7%94%9F%E7%89%A9%E5%AD%A6/" rel="tag"># 进化生物学</a>
+              <a href="/tags/%E8%AF%BB%E6%96%87%E7%AB%A0%E7%AC%94%E8%AE%B0/" rel="tag"># 读文章笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/8496/" rel="prev" title="用Python做candidate genes的随机性检验+计算p值">
+                  <i class="fa fa-chevron-left"></i> 用Python做candidate genes的随机性检验+计算p值
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fas fa-atom"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fc</span>
+</div>
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>-->
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+
+
+
+
+<script src="https://unpkg.com/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+
+<script>
+var options = {
+  bottom: '64px',
+  right: '32px',
+  left: 'unset',
+  time: '0.5s',
+  mixColor: 'transparent',
+  backgroundColor: 'transparent',
+  buttonColorDark: '#100f2c',
+  buttonColorLight: '#fff',
+  saveInCookies: true,
+  label: '🌓',
+  autoMatchOsTheme: true
+}
+const darkmode = new Darkmode(options);
+window.darkmode = darkmode;
+darkmode.showWidget();
+</script>
+
+</body>
+</html>
