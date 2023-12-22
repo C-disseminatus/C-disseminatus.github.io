@@ -728,4 +728,25 @@
         <tag>读文章笔记</tag>
       </tags>
   </entry>
+  <entry>
+    <title>模仿北极熊被毛的仿生合成纤维 - 2023</title>
+    <url>/posts/11564/</url>
+    <content><![CDATA[<p>原文：<a href="https://doi.org/10.1126/science.adj8013">https://doi.org/10.1126/science.adj8013</a></p>
+<p>浙江大学化学工程实验室的一个成果。</p>
+<h1 id="北极熊毛发的保暖原理"><a href="#北极熊毛发的保暖原理" class="headerlink" title="北极熊毛发的保暖原理"></a>北极熊毛发的保暖原理</h1><p>双层结构，外层为密度很高的外壳，内层为具有很多中空孔洞的核心，热量通过皮肤向外辐射时会被内部的大量空气锁住（类似微型温室效应），因此实现保暖效果。</p>
+<p><a href="https://www.science.org/cms/10.1126/science.adj8013/asset/8da512bd-e855-4dfc-84f1-6719c1839c10/assets/images/large/science.adj8013-f1.jpg"><img src="https://www.science.org/cms/10.1126/science.adj8013/asset/8da512bd-e855-4dfc-84f1-6719c1839c10/assets/images/large/science.adj8013-f1.jpg" alt="science.adj8013-f1.jpg"></a></p>
+<h1 id="合成纤维设计"><a href="#合成纤维设计" class="headerlink" title="合成纤维设计"></a>合成纤维设计</h1><p>全称encapsulated aerogel fiber (EAF)，核心在于模仿北极熊毛发的双层结构，使用材质为thermoplastic polyurethane (TPU，热塑性聚氨酯，上图)，通过低温延展的气凝胶纤维（aerogel fiber）经过TPU包裹处理和加热塑性制成可针织、染色和水洗的“毛线”材料。</p>
+<h1 id="合成纤维的保暖效率"><a href="#合成纤维的保暖效率" class="headerlink" title="合成纤维的保暖效率"></a>合成纤维的保暖效率</h1><h2 id="与其他衣物材料的对比"><a href="#与其他衣物材料的对比" class="headerlink" title="与其他衣物材料的对比"></a>与其他衣物材料的对比</h2><p>锁温能力（将下层/内部高温锁住、不让其散失至表面的能力，用表层温度和下层温度之间的差值ΔT表示）显著高于尼龙、PET和羊毛材料，与羽绒材料持平，但厚度小于羽绒服。</p>
+<p><a href="https://www.science.org/cms/10.1126/science.adj8013/asset/cc05344b-906d-43a8-bcc0-b8e81ca7d077/assets/images/large/science.adj8013-f4.jpg"><img src="https://www.science.org/cms/10.1126/science.adj8013/asset/cc05344b-906d-43a8-bcc0-b8e81ca7d077/assets/images/large/science.adj8013-f4.jpg" alt="science.adj8013-f4.jpg"></a></p>
+<h2 id="水洗耐受度"><a href="#水洗耐受度" class="headerlink" title="水洗耐受度"></a>水洗耐受度</h2><p>用家用洗衣机清洗后重新测试锁温能力，没有明显变化（上图H）。</p>
+]]></content>
+      <categories>
+        <category>读文章</category>
+      </categories>
+      <tags>
+        <tag>读文章笔记</tag>
+        <tag>仿生学</tag>
+        <tag>新材料</tag>
+      </tags>
+  </entry>
 </search>
