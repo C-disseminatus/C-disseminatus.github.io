@@ -409,6 +409,15 @@
 
 
 
+    <div class="comments" id="comments">
+      <script src="https://utteranc.es/client.js"
+              repo="andriasmatthewi/Blog_comment"
+              issue-term="pathname"
+              theme="github-light"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -431,6 +440,7 @@
     });
   }
 </script>
+
 </div>
   </main>
 
@@ -486,6 +496,7 @@
     });
   </script>
 
+
   
 
 
@@ -510,6 +521,19 @@ var options = {
 const darkmode = new Darkmode(options);
 window.darkmode = darkmode;
 darkmode.showWidget();
+</script>
+
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "andriasmatthewi/Blog_comment");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "github-dark");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
 </script>
 
 </body>
