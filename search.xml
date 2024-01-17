@@ -749,4 +749,30 @@
         <tag>新材料</tag>
       </tags>
   </entry>
+  <entry>
+    <title>用BRAKER3对无注释的参考基因组进行基因预测</title>
+    <url>/posts/64077/</url>
+    <content><![CDATA[<p>软件官网：<br><a href="https://github.com/Gaius-Augustus/BRAKER">https://github.com/Gaius-Augustus/BRAKER</a></p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>因为这个pipeline需要的dependency太多了，这里先用conda创建一个单独的环境，再直接用singularity（或者docker也可以）把官网指定的所有dependency全部打包成一个sif文件，之后每次都通过singularity作为中间媒介来调用braker3。</p>
+<h2 id="创建conda环境"><a href="#创建conda环境" class="headerlink" title="创建conda环境"></a>创建conda环境</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">conda create --name braker3</span><br></pre></td></tr></table></figure>
+
+<h2 id="用singularity打包可执行文件"><a href="#用singularity打包可执行文件" class="headerlink" title="用singularity打包可执行文件"></a>用singularity打包可执行文件</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">singularity build braker3.sif docker://teambraker/braker3:latest</span><br></pre></td></tr></table></figure>
+<h2 id="检查是否可用"><a href="#检查是否可用" class="headerlink" title="检查是否可用"></a>检查是否可用</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">singularity exec braker3.sif braker.pl</span><br></pre></td></tr></table></figure>
+<p>此时如果弹出使用简介信息就说明安装成功了。</p>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="可用模式"><a href="#可用模式" class="headerlink" title="可用模式"></a>可用模式</h2><p>braker3有四种基因预测（gene prediction）的模式，即GeneMark-ES/ET/EP/ETP，分别对应的是以下四种不同情况：</p>
+<h3 id="只有参考基因组时"><a href="#只有参考基因组时" class="headerlink" title="只有参考基因组时"></a>只有参考基因组时</h3><p>即只用一条fasta格式的基因组，从头训练GeneMark-ES模型，预测长基因片段，再将这些基因片段提供给AUGUSTUS软件用来注释基因。由于没有真实测序数据的辅助，这样的注释效果是所有模式中最差的。</p>
+<h3 id="有参考基因组-同一物种的转录组数据时"><a href="#有参考基因组-同一物种的转录组数据时" class="headerlink" title="有参考基因组+同一物种的转录组数据时"></a>有参考基因组+同一物种的转录组数据时</h3><p>使用fasta格式的基因组+转录组比对后的bam文件，训练GeneMark-ET</p>
+<h3 id="有参考基因组-蛋白组数据（但与目标物种亲缘关系未知）时"><a href="#有参考基因组-蛋白组数据（但与目标物种亲缘关系未知）时" class="headerlink" title="有参考基因组+蛋白组数据（但与目标物种亲缘关系未知）时"></a>有参考基因组+蛋白组数据（但与目标物种亲缘关系未知）时</h3><p>使用fasta格式的基因组+OrthoDB的fasta蛋白组文件，训练GeneMark-EP/EP+</p>
+<h3 id="有参考基因组-同一物种的转录组数据-蛋白组数据（但与目标物种亲缘关系未知）时"><a href="#有参考基因组-同一物种的转录组数据-蛋白组数据（但与目标物种亲缘关系未知）时" class="headerlink" title="有参考基因组+同一物种的转录组数据+蛋白组数据（但与目标物种亲缘关系未知）时"></a>有参考基因组+同一物种的转录组数据+蛋白组数据（但与目标物种亲缘关系未知）时</h3><p>使用fasta格式的基因组+转录组比对后的bam文件+OrthoDB的fasta蛋白组文件，训练GeneMark-ETP</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">singularity exec braker3.sif braker.pl</span><br></pre></td></tr></table></figure>
+<p>（待补充）</p>
+]]></content>
+      <categories>
+        <category>生信分析</category>
+      </categories>
+      <tags>
+        <tag>生信</tag>
+        <tag>基因组</tag>
+      </tags>
+  </entry>
 </search>
