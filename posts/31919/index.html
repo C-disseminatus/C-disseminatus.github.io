@@ -24,12 +24,12 @@
 <meta name="description" content="GENESPACE使用记录。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="用GENESPACE建立基于orthologues的染色体共线性关系图">
-<meta property="og:url" content="https://andriasmatthewi.github.io/posts/31921/index.html">
+<meta property="og:url" content="https://andriasmatthewi.github.io/posts/31919/index.html">
 <meta property="og:site_name" content="Mirage">
 <meta property="og:description" content="GENESPACE使用记录。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-05T06:00:00.000Z">
-<meta property="article:modified_time" content="2024-04-05T13:23:32.214Z">
+<meta property="article:modified_time" content="2024-04-05T14:41:00.835Z">
 <meta property="article:author" content="F">
 <meta property="article:tag" content="生信">
 <meta property="article:tag" content="基因组">
@@ -37,7 +37,7 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://andriasmatthewi.github.io/posts/31921/">
+<link rel="canonical" href="https://andriasmatthewi.github.io/posts/31919/">
 
 
 <script class="page-configurations">
@@ -188,7 +188,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9GENESPACE"><span class="nav-number">1.</span> <span class="nav-text">为什么选择GENESPACE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%A5%E5%8F%8A%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84debug%E8%AE%B0%E5%BD%95%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">安装（以及过程中的debug记录）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CGENESPACE-sh"><span class="nav-number">2.1.</span> <span class="nav-text">运行GENESPACE.sh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E7%9A%84R%E8%84%9A%E6%9C%ACGENESPACE-R"><span class="nav-number">2.2.</span> <span class="nav-text">调用的R脚本GENESPACE.R</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9GENESPACE"><span class="nav-number">1.</span> <span class="nav-text">为什么选择GENESPACE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%90%E8%A1%8C%EF%BC%88%E4%BB%A5%E5%8F%8A%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84debug%E8%AE%B0%E5%BD%95%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">安装与运行（以及过程中的debug记录）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">调试与初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E5%87%86%E5%A4%87%EF%BC%88%E6%9C%80%E9%BA%BB%E7%83%A6%E7%9A%84%E4%B8%80%E6%AD%A5%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">输入文件准备（最麻烦的一步）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#bed%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%B3%A8%E9%87%8A%E6%96%87%E4%BB%B6"><span class="nav-number">2.2.1.</span> <span class="nav-text">bed格式的注释文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fasta%E6%A0%BC%E5%BC%8F%E7%9A%84pep%E5%A4%9A%E8%82%BD%E5%BA%8F%E5%88%97"><span class="nav-number">2.2.2.</span> <span class="nav-text">fasta格式的pep多肽序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E8%B7%AF%E5%BE%84%E4%B8%8E%E8%BE%93%E5%85%A5%E6%96%87%E4%BB%B6%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.2.3.</span> <span class="nav-text">工作路径与输入文件存放位置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CGENESPACE-sh"><span class="nav-number">2.3.</span> <span class="nav-text">运行GENESPACE.sh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E7%9A%84R%E8%84%9A%E6%9C%ACGENESPACE-R"><span class="nav-number">2.4.</span> <span class="nav-text">调用的R脚本GENESPACE.R</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -256,7 +256,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://andriasmatthewi.github.io/posts/31921/">
+    <link itemprop="mainEntityOfPage" href="https://andriasmatthewi.github.io/posts/31919/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -281,7 +281,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2024-04-05 14:00:00 / 修改时间：21:23:32" itemprop="dateCreated datePublished" datetime="2024-04-05T14:00:00+08:00">2024-04-05</time>
+      <time title="创建时间：2024-04-05 14:00:00 / 修改时间：22:41:00" itemprop="dateCreated datePublished" datetime="2024-04-05T14:00:00+08:00">2024-04-05</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -308,7 +308,40 @@
 <p>GENESPACE的分析利用的是orthologues而不是核酸序列本身的比对相似性，因此可以在亲缘关系较远的物种之间找到较为连续的保守区块，从而得到不错的可视化效果。下面是官网教程给出的几种亲缘关系很远的物种染色体共线性分析结果：</p>
 <p><a target="_blank" rel="noopener" href="https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/riparianGuide.html">Riparian plotting with GENESPACE (htmlpreview.github.io)</a></p>
 <p>&nbsp;</p>
-<h1 id="安装（以及过程中的debug记录）"><a href="#安装（以及过程中的debug记录）" class="headerlink" title="安装（以及过程中的debug记录）"></a>安装（以及过程中的debug记录）</h1><p>官网给出的其中一种方法是通过conda单独创建一个环境，将包括orthofinder在内的所有dependency全部装在这里面。但我在安装的时候遇到了很多很多问题，因为官方维护的问题所以在bioconda和conda-forge能够下载到的dependency版本存在大量的不兼容，最后我折腾出了一个折中的方案，即建立一个orthofinder专用的conda环境，然后建立一个装有R 4.2.3的conda环境，将GENESPACE这个R包需要的其他R包装在这个环境中，但在实际使用的时候激活orthofinder的环境，并直接在那里跨环境调用R 4.2.3，相当于曲线救国了。这样做的好处是不会轻易搞乱早已调试好的环境里的dependency，以防之后出错</p>
+<h1 id="安装与运行（以及过程中的debug记录）"><a href="#安装与运行（以及过程中的debug记录）" class="headerlink" title="安装与运行（以及过程中的debug记录）"></a>安装与运行（以及过程中的debug记录）</h1><p>官网给出的其中一种方法是通过conda单独创建一个环境，将包括orthofinder在内的所有dependency全部装在这里面。但我在安装的时候遇到了很多很多问题，因为官方维护的问题所以在bioconda和conda-forge能够下载到的dependency版本存在大量的不兼容，最后我折腾出了一个折中的方案，即：</p>
+<p>①建立一个orthofinder专用的conda环境，；</p>
+<p>②建立一个装有R 4.2.3的conda环境，将GENESPACE这个R包需要的其他R包装在这个环境中；</p>
+<p>③在实际使用的时候激活orthofinder的环境，并直接在那里跨环境调用R 4.2.3；</p>
+<p>④在conda以外手动安装MCScanX。</p>
+<p>感觉相当于曲线救国了，整个安装调试下来差不多折腾了两个月。不过这样做的好处是不会轻易搞乱早已调试好的环境里的dependency，以防之后出错。</p>
+<h2 id="调试与初始化"><a href="#调试与初始化" class="headerlink" title="调试与初始化"></a>调试与初始化</h2><p>在R环境下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">library(GENESPACE)</span><br><span class="line"></span><br><span class="line">wd &lt;- <span class="string">&quot;/GENESPACE/workingDirectory&quot;</span></span><br><span class="line">path2mcscanx &lt;- <span class="string">&quot;/home/user/software/MCScanX/MCScanX-master&quot;</span></span><br><span class="line">gpar &lt;- init_genespace(wd = wd, path2mcscanx = path2mcscanx, nCores = <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>此时得到了如下的报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">Checking dependencies ...</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/tree.py:367: SyntaxWarning: invalid escape sequence &#x27;\-&#x27;</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/tree.py:1422: SyntaxWarning: invalid escape sequence &#x27;\-&#x27;</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/newick.py:54: SyntaxWarning: invalid escape sequence &#x27;\[&#x27;</span><br><span class="line">  _ILEGAL_NEWICK_CHARS = &quot;:;(),\[\]\t\n\r=&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/newick.py:57: SyntaxWarning: invalid escape sequence &#x27;\[&#x27;</span><br><span class="line">  _NHX_RE = &quot;\[&amp;&amp;NHX:[^\]]*\]&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/newick.py:58: SyntaxWarning: invalid escape sequence &#x27;\d&#x27;</span><br><span class="line">  _FLOAT_RE = &quot;[+-]?\d+\.?\d*(?:[eE][-+]\d+)?&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/newick.py:60: SyntaxWarning: invalid escape sequence &#x27;\[&#x27;</span><br><span class="line">  _NAME_RE = &quot;[^():,;\[\]]+&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/newick.py:337: SyntaxWarning: invalid escape sequence &#x27;\s&#x27;</span><br><span class="line">  MATCH = &#x27;%s\s*%s\s*(%s)?&#x27; % (FIRST_MATCH, SECOND_MATCH, _NHX_RE)</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/probroot.py:10: SyntaxWarning: invalid escape sequence &#x27;\i&#x27;</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/probroot.py:201: SyntaxWarning: invalid escape sequence &#x27;\l&#x27;</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">/home/user/miniconda3/envs/orthofinder/bin/scripts_of/probroot.py:267: SyntaxWarning: invalid escape sequence &#x27;\l&#x27;</span><br><span class="line">  &quot;&quot;&quot;</span><br><span class="line">        Found valid path to OrthoFinder v2.55: `orthofinder`</span><br><span class="line">        Found valid path to DIAMOND2 v2.19: `diamond`</span><br><span class="line">        Found valid MCScanX_h executable: `/home/user/software/MCScanX/MCScanX-master/MCScanX_h`</span><br></pre></td></tr></table></figure>
+
+<p>个人感觉这里不是软件本身的问题，而是因为我在安装的时候跨了太多个环境，中途更换的dependency版本可能导致python版本的不兼容，在调用tree.py、newick.py和probroot.py这三个脚本时检测的raw strings字符串包含了“\”这种正则符号，因此无法正常运行。最后的解决方式就是挨个更改这三个python脚本，在出现报错那几行的“”符号前加上一个“r”，代表这后面引号框起来的都是纯字符串而不是正则符，以防被系统检测为syntax error。具体例子：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vim /home/user/miniconda3/envs/orthofinder/bin/scripts_of/newick.py</span><br><span class="line"></span><br><span class="line">#原先报错的第54行是：</span><br><span class="line">_ILEGAL_NEWICK_CHARS = &quot;:;(),\[\]\t\n\r=&quot;</span><br><span class="line"></span><br><span class="line">#把它更改成：</span><br><span class="line">_ILEGAL_NEWICK_CHARS = r&quot;:;(),\[\]\t\n\r=&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这样就可以解决报错问题了。</p>
+<h2 id="输入文件准备（最麻烦的一步）"><a href="#输入文件准备（最麻烦的一步）" class="headerlink" title="输入文件准备（最麻烦的一步）"></a>输入文件准备（最麻烦的一步）</h2><p>GENESPACE本身是有一个<code>parse_annotations()</code>的功能的。但是软件预设能够检测的注释格式很少，在教程里只有“ncbi”和“phytozome”两个格式。我用到的几个基因组都是从ensembl下载的，注释格式和GENESPACE能检测的不一致，所以需要自己手动转换格式。在转换过程中要格外注意检查每一步的中间文件，确保得到的文件能被GENESPACE正确识别。</p>
+<h3 id="bed格式的注释文件"><a href="#bed格式的注释文件" class="headerlink" title="bed格式的注释文件"></a>bed格式的注释文件</h3><p>GENESPACE本身需要的bed文件格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chr1  1500  2000  gene1</span><br><span class="line">chr1  2500  3200  gene2</span><br></pre></td></tr></table></figure>
+
+<p>而我本身的注释文件是ensembl的gff3格式，因此这里要用BEDOPS软件包中的gff2bed工具转换格式，并去除分类为“gene”以外的其他类别，比如“mRNA”“CDS”和“exon”之类的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Generating bed file from gff3 annotations</span><br><span class="line">gff2bed &lt; species.gff3 \</span><br><span class="line">&gt; species_raw.bed</span><br><span class="line"></span><br><span class="line"># Reformatting bed files</span><br><span class="line">awk -F &quot;\t&quot; &#x27;$8 == &quot;gene&quot; &#123;print $1, $2, $3, $4&#125;&#x27; species_raw.bed \</span><br><span class="line">&gt; species.bed</span><br></pre></td></tr></table></figure>
+
+<h3 id="fasta格式的pep多肽序列"><a href="#fasta格式的pep多肽序列" class="headerlink" title="fasta格式的pep多肽序列"></a>fasta格式的pep多肽序列</h3><p>这个文件需要从下载参考基因组的地方找，有些基因组组装完成度没达到这个级别所以很可能只有核酸序列没有蛋白组序列，为了保持基因组质量的一致性，我在这里选的基因组都是本身就自带pep.fa的那些。</p>
+<p>fasta文件有两个需要手动更正的格式问题，第一是header太长太冗余，我们需要的只有“gene:”后面接的那个编号而已；第二是在序列中包含了大量的换行，需要把它们全都删掉，变成如下的格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;gene1</span><br><span class="line">MGASGRGAGEQQSPSSTGMLVMSECKGRDRSPSSSMMLVMSECKGRDRSPSSSMMLVMSECKGRDRSPSSSMMLVMSECKGRDRSPSSSMMLVMSECKGRDRSPSSSMMLVMSECKGRDRSPSSSM</span><br><span class="line">&gt;gene2</span><br><span class="line">MLVMSECKGRDRSPSSSMRDRSPSSSMMLVMSECKGRDRSPSSRDRSPSSSMMLVMSECKGRDRSPSSRDRSPSSSMMLVMSECKGRDRSPSSRDRSPSSSMMLVMSECKGRDRSPSSRDRSPSSSMMLVMSECKGRDRSPSS</span><br></pre></td></tr></table></figure>
+
+<p>首先用seqtk软件去除fasta中的换行，之后再用awk对每个蛋白序列的header进行格式转换：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># Removing multiple lines in original fasta</span><br><span class="line">seqtk seq -l 0 species.pep.fa \</span><br><span class="line">&gt; species.pep_raw.fa</span><br><span class="line"></span><br><span class="line"># Parsing fasta headers</span><br><span class="line">awk &#x27;$0 ~ &quot;^&gt;&quot; &#123;match($0, /gene:([0-9A-Z_\.]+)/, gene); print &quot;&gt;&quot;gene[1]; next;&#125;1&#x27; species.pep_raw.fa \</span><br><span class="line">&gt; species.fa</span><br></pre></td></tr></table></figure>
+
+<p>▲这里要注意一点，每个物种编辑好的bed和fa文件命名必须是相同的，比如species.bed对应的就只能是species.fa，否则GENESPACE也会检测不到。</p>
+<h3 id="工作路径与输入文件存放位置"><a href="#工作路径与输入文件存放位置" class="headerlink" title="工作路径与输入文件存放位置"></a>工作路径与输入文件存放位置</h3><p>建立一个空文件夹（比如叫“/GENESPACE/workingDirectory”），将上一步编辑好的几个bed和fa文件分别移动至里面相应的位置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/workingDirectory</span><br><span class="line">└─ peptide</span><br><span class="line">    └─ species1.fa</span><br><span class="line">    └─ species2.fa</span><br><span class="line">└─ bed</span><br><span class="line">    └─ species1.bed</span><br><span class="line">    └─ species2.bed</span><br></pre></td></tr></table></figure>
+
 <h2 id="运行GENESPACE-sh"><a href="#运行GENESPACE-sh" class="headerlink" title="运行GENESPACE.sh"></a>运行GENESPACE.sh</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source activate orthofinder</span><br><span class="line"></span><br><span class="line">/home/user/miniconda3/envs/R_base_4/lib/R/bin/R --slave --vanilla &lt; GENESPACE.R &gt; GENESPACE.Rout</span><br></pre></td></tr></table></figure>
 
 <h2 id="调用的R脚本GENESPACE-R"><a href="#调用的R脚本GENESPACE-R" class="headerlink" title="调用的R脚本GENESPACE.R"></a>调用的R脚本GENESPACE.R</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">library(GENESPACE)</span><br><span class="line"></span><br><span class="line">wd &lt;- <span class="string">&quot;/GENESPACE/workingDirectory&quot;</span></span><br><span class="line">path2mcscanx &lt;- <span class="string">&quot;/home/user/software/MCScanX/MCScanX-master&quot;</span></span><br><span class="line">gpar &lt;- init_genespace(wd = wd, path2mcscanx = path2mcscanx, nCores = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">out &lt;- run_genespace(gpar)</span><br></pre></td></tr></table></figure>
