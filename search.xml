@@ -818,7 +818,10 @@
 
 <h2 id="运行GENESPACE-sh"><a href="#运行GENESPACE-sh" class="headerlink" title="运行GENESPACE.sh"></a>运行GENESPACE.sh</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source activate orthofinder</span><br><span class="line"></span><br><span class="line">/home/user/miniconda3/envs/R_base_4/lib/R/bin/R --slave --vanilla &lt; GENESPACE.R &gt; GENESPACE.Rout</span><br></pre></td></tr></table></figure>
 
-<h2 id="调用的R脚本GENESPACE-R"><a href="#调用的R脚本GENESPACE-R" class="headerlink" title="调用的R脚本GENESPACE.R"></a>调用的R脚本GENESPACE.R</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(GENESPACE)</span><br><span class="line"></span><br><span class="line">wd &lt;- <span class="string">&quot;/GENESPACE/workingDirectory&quot;</span></span><br><span class="line">path2mcscanx &lt;- <span class="string">&quot;/home/user/software/MCScanX/MCScanX-master&quot;</span></span><br><span class="line">gpar &lt;- init_genespace(wd = wd, path2mcscanx = path2mcscanx, nCores = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">out &lt;- run_genespace(gpar)</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="调用的R脚本GENESPACE-R"><a href="#调用的R脚本GENESPACE-R" class="headerlink" title="调用的R脚本GENESPACE.R"></a>调用的R脚本GENESPACE.R</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(GENESPACE)</span><br><span class="line"></span><br><span class="line">wd &lt;- <span class="string">&quot;/GENESPACE/workingDirectory&quot;</span></span><br><span class="line">path2mcscanx &lt;- <span class="string">&quot;/home/user/software/MCScanX/MCScanX-master&quot;</span></span><br><span class="line">gpar &lt;- init_genespace(wd = wd, path2mcscanx = path2mcscanx, nCores = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">out &lt;- run_genespace(gpar)</span><br></pre></td></tr></table></figure>
+
+<p>用10个cpu的大概运行时间是一个小时左右，软件会自动根据不同基因组的摆放顺序分别作图，效果还不错，后期也可以手动调整作图的参数。</p>
+]]></content>
       <categories>
         <category>生信分析</category>
       </categories>
