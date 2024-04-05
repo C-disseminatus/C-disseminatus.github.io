@@ -21,16 +21,23 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"andriasmatthewi.github.io","root":"/","images":"/images","scheme":"Pisces","version":"8.2.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mirage">
-<meta property="og:url" content="https://andriasmatthewi.github.io/archives/page/2/index.html">
+<meta name="description" content="GENESPACE使用记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用GENESPACE建立基于orthologues的染色体共线性关系图">
+<meta property="og:url" content="https://andriasmatthewi.github.io/posts/31921/index.html">
 <meta property="og:site_name" content="Mirage">
+<meta property="og:description" content="GENESPACE使用记录。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-05T06:00:00.000Z">
+<meta property="article:modified_time" content="2024-04-05T13:23:32.214Z">
 <meta property="article:author" content="F">
+<meta property="article:tag" content="生信">
+<meta property="article:tag" content="基因组">
+<meta property="article:tag" content="比较基因组学">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://andriasmatthewi.github.io/archives/page/2/">
+<link rel="canonical" href="https://andriasmatthewi.github.io/posts/31921/">
 
 
 <script class="page-configurations">
@@ -38,11 +45,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>归档 | Mirage</title>
+<title>用GENESPACE建立基于orthologues的染色体共线性关系图 | Mirage</title>
   
 
 
@@ -168,7 +175,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -181,6 +188,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9GENESPACE"><span class="nav-number">1.</span> <span class="nav-text">为什么选择GENESPACE</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%A5%E5%8F%8A%E8%BF%87%E7%A8%8B%E4%B8%AD%E7%9A%84debug%E8%AE%B0%E5%BD%95%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">安装（以及过程中的debug记录）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CGENESPACE-sh"><span class="nav-number">2.1.</span> <span class="nav-text">运行GENESPACE.sh</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E7%9A%84R%E8%84%9A%E6%9C%ACGENESPACE-R"><span class="nav-number">2.2.</span> <span class="nav-text">调用的R脚本GENESPACE.R</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -237,236 +245,115 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 21 篇日志。 继续努力。</span>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://andriasmatthewi.github.io/posts/31921/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="F">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mirage">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          用GENESPACE建立基于orthologues的染色体共线性关系图
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2022</span>
+
+      <time title="创建时间：2024-04-05 14:00:00 / 修改时间：21:23:32" itemprop="dateCreated datePublished" datetime="2024-04-05T14:00:00+08:00">2024-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%9F%E4%BF%A1%E5%88%86%E6%9E%90/" itemprop="url" rel="index"><span itemprop="name">生信分析</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+            <div class="post-description">GENESPACE使用记录。</div>
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="为什么选择GENESPACE"><a href="#为什么选择GENESPACE" class="headerlink" title="为什么选择GENESPACE"></a>为什么选择GENESPACE</h1><p>目前多数建立染色体共线性分析的软件都是直接基于核酸序列比对结果的，这种分析在用于亲缘关系非常近的物种时是适用的，但如果想要分析属或以上分类关系的物种时往往会因为核算差异太大而得不到足够连续的synteny block，可视化效果非常差。</p>
+<p>GENESPACE的分析利用的是orthologues而不是核酸序列本身的比对相似性，因此可以在亲缘关系较远的物种之间找到较为连续的保守区块，从而得到不错的可视化效果。下面是官网教程给出的几种亲缘关系很远的物种染色体共线性分析结果：</p>
+<p><a target="_blank" rel="noopener" href="https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/riparianGuide.html">Riparian plotting with GENESPACE (htmlpreview.github.io)</a></p>
+<p>&nbsp;</p>
+<h1 id="安装（以及过程中的debug记录）"><a href="#安装（以及过程中的debug记录）" class="headerlink" title="安装（以及过程中的debug记录）"></a>安装（以及过程中的debug记录）</h1><p>官网给出的其中一种方法是通过conda单独创建一个环境，将包括orthofinder在内的所有dependency全部装在这里面。但我在安装的时候遇到了很多很多问题，因为官方维护的问题所以在bioconda和conda-forge能够下载到的dependency版本存在大量的不兼容，最后我折腾出了一个折中的方案，即建立一个orthofinder专用的conda环境，然后建立一个装有R 4.2.3的conda环境，将GENESPACE这个R包需要的其他R包装在这个环境中，但在实际使用的时候激活orthofinder的环境，并直接在那里跨环境调用R 4.2.3，相当于曲线救国了。这样做的好处是不会轻易搞乱早已调试好的环境里的dependency，以防之后出错</p>
+<h2 id="运行GENESPACE-sh"><a href="#运行GENESPACE-sh" class="headerlink" title="运行GENESPACE.sh"></a>运行GENESPACE.sh</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source activate orthofinder</span><br><span class="line"></span><br><span class="line">/home/user/miniconda3/envs/R_base_4/lib/R/bin/R --slave --vanilla &lt; GENESPACE.R &gt; GENESPACE.Rout</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用的R脚本GENESPACE-R"><a href="#调用的R脚本GENESPACE-R" class="headerlink" title="调用的R脚本GENESPACE.R"></a>调用的R脚本GENESPACE.R</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">library(GENESPACE)</span><br><span class="line"></span><br><span class="line">wd &lt;- <span class="string">&quot;/GENESPACE/workingDirectory&quot;</span></span><br><span class="line">path2mcscanx &lt;- <span class="string">&quot;/home/user/software/MCScanX/MCScanX-master&quot;</span></span><br><span class="line">gpar &lt;- init_genespace(wd = wd, path2mcscanx = path2mcscanx, nCores = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">out &lt;- run_genespace(gpar)</span><br></pre></td></tr></table></figure>
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-07-14T13:45:04+08:00"
-              content="2022-07-14">
-          07-14
-        </time>
-      </div>
+    
+    
+    
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/52914/" itemprop="url">
-            <span itemprop="name">用easySFS和fastsimcoal2模拟种群历史事件</span>
-          </a>
-      </div>
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%94%9F%E4%BF%A1/" rel="tag"># 生信</a>
+              <a href="/tags/%E5%9F%BA%E5%9B%A0%E7%BB%84/" rel="tag"># 基因组</a>
+              <a href="/tags/%E6%AF%94%E8%BE%83%E5%9F%BA%E5%9B%A0%E7%BB%84%E5%AD%A6/" rel="tag"># 比较基因组学</a>
+          </div>
 
-      
-    </header>
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/posts/64077/" rel="prev" title="用BRAKER3对无注释的参考基因组进行基因预测">
+                  <i class="fa fa-chevron-left"></i> 用BRAKER3对无注释的参考基因组进行基因预测
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
   </article>
+</div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-19T20:10:36+08:00"
-              content="2022-04-19">
-          04-19
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/33302/" itemprop="url">
-            <span itemprop="name">用ANGSD和Stairway Plot2构建种群历史动态</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-18T20:50:29+08:00"
-              content="2022-04-18">
-          04-18
-        </time>
-      </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/24658/" itemprop="url">
-            <span itemprop="name">用selscan进行全基因组正选择扫描</span>
-          </a>
-      </div>
 
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-04-15T17:15:52+08:00"
-              content="2022-04-15">
-          04-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/25596/" itemprop="url">
-            <span itemprop="name">Mallet驳Mayr对达尔文的误解 - 2008</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-03-19T16:50:00+08:00"
-              content="2022-03-19">
-          03-19
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/59035/" itemprop="url">
-            <span itemprop="name">用ReLERNN计算全基因组重组率景观</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-01-26T20:36:15+08:00"
-              content="2022-01-26">
-          01-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/64483/" itemprop="url">
-            <span itemprop="name">一个超简单的admixture结果排序脚本</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-01-26T10:00:00+08:00"
-              content="2022-01-26">
-          01-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/24235/" itemprop="url">
-            <span itemprop="name">西西弗神话 - 摘抄</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2022-01-26T09:00:00+08:00"
-              content="2022-01-26">
-          01-26
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/58910/" itemprop="url">
-            <span itemprop="name">转录组基本分析流程</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+    <div class="comments" id="comments">
+      <script src="https://utteranc.es/client.js"
+              repo="andriasmatthewi/Blog_comment"
+              issue-term="pathname"
+              theme="preferred-color-scheme"
+              crossorigin="anonymous"
+              async>
+      </script>
     </div>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-04-25T19:01:00+08:00"
-              content="2021-04-25">
-          04-25
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/3089/" itemprop="url">
-            <span itemprop="name">鸻鹬的冬天无人知晓</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2021-03-11T10:39:22+08:00"
-              content="2021-03-11">
-          03-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/posts/391/" itemprop="url">
-            <span itemprop="name">GitHub Pages + Hexo搭建博客流程</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-
-    </div>
-  </div>
-  
-  
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/archives/">1</a><span class="page-number current">2</span><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -572,6 +459,18 @@ window.darkmode = darkmode;
 darkmode.showWidget();
 </script>
 
+<script>
+NexT.utils.loadComments('.utterances-container', () => {
+  const script = document.createElement('script');
+  script.src = 'https://utteranc.es/client.js';
+  script.setAttribute('repo', "andriasmatthewi/Blog_comment");
+  script.setAttribute('issue-term', "pathname");
+  script.setAttribute('theme', "preferred-color-scheme");
+  script.crossOrigin = 'anonymous';
+  script.async = true;
+  document.querySelector('.utterances-container').appendChild(script);
+});
+</script>
 
 </body>
 </html>

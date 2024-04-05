@@ -775,4 +775,24 @@
         <tag>基因组</tag>
       </tags>
   </entry>
+  <entry>
+    <title>用GENESPACE建立基于orthologues的染色体共线性关系图</title>
+    <url>/posts/31921/</url>
+    <content><![CDATA[<h1 id="为什么选择GENESPACE"><a href="#为什么选择GENESPACE" class="headerlink" title="为什么选择GENESPACE"></a>为什么选择GENESPACE</h1><p>目前多数建立染色体共线性分析的软件都是直接基于核酸序列比对结果的，这种分析在用于亲缘关系非常近的物种时是适用的，但如果想要分析属或以上分类关系的物种时往往会因为核算差异太大而得不到足够连续的synteny block，可视化效果非常差。</p>
+<p>GENESPACE的分析利用的是orthologues而不是核酸序列本身的比对相似性，因此可以在亲缘关系较远的物种之间找到较为连续的保守区块，从而得到不错的可视化效果。下面是官网教程给出的几种亲缘关系很远的物种染色体共线性分析结果：</p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/jtlovell/tutorials/blob/main/riparianGuide.html">Riparian plotting with GENESPACE (htmlpreview.github.io)</a></p>
+<p>&nbsp;</p>
+<h1 id="安装（以及过程中的debug记录）"><a href="#安装（以及过程中的debug记录）" class="headerlink" title="安装（以及过程中的debug记录）"></a>安装（以及过程中的debug记录）</h1><p>官网给出的其中一种方法是通过conda单独创建一个环境，将包括orthofinder在内的所有dependency全部装在这里面。但我在安装的时候遇到了很多很多问题，因为官方维护的问题所以在bioconda和conda-forge能够下载到的dependency版本存在大量的不兼容，最后我折腾出了一个折中的方案，即建立一个orthofinder专用的conda环境，然后建立一个装有R 4.2.3的conda环境，将GENESPACE这个R包需要的其他R包装在这个环境中，但在实际使用的时候激活orthofinder的环境，并直接在那里跨环境调用R 4.2.3，相当于曲线救国了。这样做的好处是不会轻易搞乱早已调试好的环境里的dependency，以防之后出错</p>
+<h2 id="运行GENESPACE-sh"><a href="#运行GENESPACE-sh" class="headerlink" title="运行GENESPACE.sh"></a>运行GENESPACE.sh</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">source activate orthofinder</span><br><span class="line"></span><br><span class="line">/home/user/miniconda3/envs/R_base_4/lib/R/bin/R --slave --vanilla &lt; GENESPACE.R &gt; GENESPACE.Rout</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用的R脚本GENESPACE-R"><a href="#调用的R脚本GENESPACE-R" class="headerlink" title="调用的R脚本GENESPACE.R"></a>调用的R脚本GENESPACE.R</h2><figure class="highlight r"><table><tr><td class="code"><pre><span class="line">library(GENESPACE)</span><br><span class="line"></span><br><span class="line">wd &lt;- <span class="string">&quot;/GENESPACE/workingDirectory&quot;</span></span><br><span class="line">path2mcscanx &lt;- <span class="string">&quot;/home/user/software/MCScanX/MCScanX-master&quot;</span></span><br><span class="line">gpar &lt;- init_genespace(wd = wd, path2mcscanx = path2mcscanx, nCores = <span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">out &lt;- run_genespace(gpar)</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>生信分析</category>
+      </categories>
+      <tags>
+        <tag>生信</tag>
+        <tag>基因组</tag>
+        <tag>比较基因组学</tag>
+      </tags>
+  </entry>
 </search>
